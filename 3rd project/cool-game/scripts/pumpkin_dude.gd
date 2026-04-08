@@ -20,7 +20,7 @@ func _enemyinit() -> void:
 	max_health = 100.0
 	health = max_health
 	damage = 10.0
-	kb = 2.4
+	kb = 2.2
 	wander_time = Vector2(3.0, 5.0)
 	m = 1.0
 	
