@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4nson0s1tnpg"]
+
+[ext_resource type="AudioStream" uid="uid://dcoffqagbj33q" path="res://assets/sounds/coin.wav" id="1_8ysg0"]
+[ext_resource type="Script" path="res://scenes/sfx.gd" id="1_gbb01"]
+
+[node name="SFX" type="Node"]
+script = ExtResource("1_gbb01")
+
+[node name="coin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_8ysg0")

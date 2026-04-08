@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw1ph7f5cni2a"]
+
+[ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_jdgqw"]
+[ext_resource type="Script" path="res://scripts/weapons/sword.gd" id="2_gouu4"]
+
+[node name="Sword" instance=ExtResource("1_jdgqw")]
+script = ExtResource("2_gouu4")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -8.5)
+offset = Vector2(0, 0)
+region_rect = Rect2(339, 10, 10, 21)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -8.5)

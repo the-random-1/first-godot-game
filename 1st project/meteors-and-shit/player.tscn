@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqa6rfjigxavc"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_7e6py"]
+[ext_resource type="Texture2D" uid="uid://olcom383rouy" path="res://assets/PNG/playerShip1_orange.png" id="1_phd81"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_7e6py")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-8, -38, 8, -38, 12, -12, 36, 2, 40, 0, 45, -7, 50, -6, 46, 26, 41, 21, 13, 28, 7, 38, -7, 38, -14, 28, -41, 21, -45, 25, -49, -5, -45, -7, -42, -1, -36, 2, -12, -11)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_phd81")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-57, -59)
+
+[node name="ColorRect" type="ColorRect" parent="Node2D"]
+offset_right = 114.0
+offset_bottom = 13.0
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Node2D"]
+offset_right = 114.0
+offset_bottom = 13.0
+color = Color(0, 0.658824, 0, 1)

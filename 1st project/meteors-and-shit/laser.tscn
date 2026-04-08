@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cirt8j3cwj3vy"]
+
+[ext_resource type="Script" path="res://laser.gd" id="1_72l8j"]
+[ext_resource type="Texture2D" uid="uid://bwalimwst8gj0" path="res://assets/PNG/Lasers/laserBlue05.png" id="1_k5pgs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slmur"]
+radius = 4.0
+height = 36.0
+
+[node name="laser" type="Area2D"]
+script = ExtResource("1_72l8j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_slmur")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k5pgs")

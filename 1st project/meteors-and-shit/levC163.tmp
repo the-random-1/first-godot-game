@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://bu8ojou1t0pwn"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_6a3l5"]
+[ext_resource type="Texture2D" uid="uid://codlg77roxi5x" path="res://assets/Backgrounds/darkPurple.png" id="1_gdxdr"]
+[ext_resource type="PackedScene" uid="uid://bqa6rfjigxavc" path="res://player.tscn" id="2_s4eyc"]
+[ext_resource type="FontFile" uid="uid://dbkji55en34pw" path="res://assets/Bonus/kenvector_future.ttf" id="5_btte1"]
+[ext_resource type="Script" path="res://ui.gd" id="5_l0ene"]
+[ext_resource type="Script" path="res://score_label.gd" id="6_nbi4y"]
+[ext_resource type="AudioStream" uid="uid://bniy00ksj1kaf" path="res://assets/Bonus/sfx_laser2.ogg" id="7_4jxy8"]
+[ext_resource type="AudioStream" uid="uid://djb1n3n7pwqoq" path="res://assets/Bonus/sfx_zap.ogg" id="7_b003d"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_do4av"]
+a = Vector2(0, 650)
+b = Vector2(0, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ecfd5"]
+b = Vector2(1152, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6qd5o"]
+a = Vector2(1152, 0)
+b = Vector2(1152, 650)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2i4ta"]
+a = Vector2(1152, 650)
+b = Vector2(0, 650)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_6a3l5")
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="BG"]
+texture_repeat = 2
+scale = Vector2(4.49991, 2.53906)
+texture = ExtResource("1_gdxdr")
+centered = false
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="BG"]
+
+[node name="Left" type="CollisionShape2D" parent="BG/StaticBody2D2"]
+shape = SubResource("SegmentShape2D_do4av")
+
+[node name="Top" type="CollisionShape2D" parent="BG/StaticBody2D2"]
+shape = SubResource("SegmentShape2D_ecfd5")
+
+[node name="Right" type="CollisionShape2D" parent="BG/StaticBody2D2"]
+shape = SubResource("SegmentShape2D_6qd5o")
+
+[node name="Bottom" type="CollisionShape2D" parent="BG/StaticBody2D2"]
+shape = SubResource("SegmentShape2D_2i4ta")
+
+[node name="Lasers" type="Node2D" parent="."]
+
+[node name="Meteors" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_s4eyc")]
+position = Vector2(599, 406)
+scale = Vector2(1.179, 1.071)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="." groups=["ui"]]
+script = ExtResource("5_l0ene")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 10
+
+[node name="ScoreLabel" type="Label" parent="UI/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_btte1")
+theme_override_font_sizes/font_size = 50
+text = "0"
+script = ExtResource("6_nbi4y")
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="laser" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_4jxy8")
+pitch_scale = 2.0
+
+[node name="score10" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_b003d")
+
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootCooldown" to="." method="_on_shoot_cooldown_timeout"]

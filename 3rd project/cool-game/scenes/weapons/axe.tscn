@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://hxr7tcf2h8li"]
+
+[ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_kb3bb"]
+[ext_resource type="Script" path="res://scripts/weapons/axe.gd" id="2_v3bkr"]
+
+[node name="Axe" instance=ExtResource("1_kb3bb")]
+script = ExtResource("2_v3bkr")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -9)
+region_rect = Rect2(288, 167, 16, 24)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)

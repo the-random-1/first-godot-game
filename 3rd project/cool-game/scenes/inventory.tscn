@@ -1,0 +1,162 @@
+[gd_scene load_steps=7 format=3 uid="uid://28ma8movjv5x"]
+
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_rl3a8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07f4w"]
+bg_color = Color(0, 0, 0, 0.719)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8u8jl"]
+bg_color = Color(0.14, 0.14, 0.14, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v4os"]
+bg_color = Color(0.666667, 0.666667, 0.666667, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_gm326"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vgv7"]
+font_size = 20
+font_color = Color(0.811765, 0.811765, 0.811765, 1)
+
+[node name="Inventory" type="Control"]
+z_index = 111
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rl3a8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_07f4w")
+
+[node name="Main" type="Control" parent="."]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Main"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8u8jl")
+
+[node name="Label" type="Label" parent="Main/PanelContainer"]
+custom_minimum_size = Vector2(600, 380)
+layout_mode = 2
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/PanelContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="ItemSlots" type="Control" parent="Main/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="Main/PanelContainer/HBoxContainer/ItemSlots"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="InventoryPanel1" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="InventoryPanel2" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="InventoryPanel3" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="InventoryPanel4" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="InventoryPanel5" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="InventoryPanel6" type="Panel" parent="Main/PanelContainer/HBoxContainer/ItemSlots/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8v4os")
+
+[node name="ItemDescriptions" type="Control" parent="Main/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/PanelContainer/HBoxContainer/ItemDescriptions"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_right = -20.0
+offset_bottom = -20.0
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Main/PanelContainer/HBoxContainer/ItemDescriptions/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Name of Item"
+label_settings = SubResource("LabelSettings_gm326")
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="Main/PanelContainer/HBoxContainer/ItemDescriptions/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Item Description lorem ipsum dolor sit amet"
+label_settings = SubResource("LabelSettings_3vgv7")
+autowrap_mode = 2

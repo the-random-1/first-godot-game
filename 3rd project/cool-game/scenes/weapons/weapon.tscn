@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb8m6d53ndgtr"]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon.gd" id="1_kre05"]
+[ext_resource type="Texture2D" uid="uid://ceqru8ufnhc14" path="res://assets/0x72_DungeonTilesetII_v1.7.png" id="2_jtbw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v2q7"]
+size = Vector2(10, 21)
+
+[node name="Weapon" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_kre05")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jtbw7")
+offset = Vector2(0, -0.5)
+region_enabled = true
+region_rect = Rect2(393, 10, 10, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_7v2q7")
+
+[node name="Attack1Cooldown" type="Timer" parent="."]
+one_shot = true
