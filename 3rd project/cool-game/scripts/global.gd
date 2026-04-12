@@ -48,7 +48,8 @@ enum _WEAPON_TYPES {
 	LONGSWORD,
 	AXE,
 	CLUB,
-	STAFF
+	STAFF,
+	NA
 }
 
 enum _ITEM_TYPES {
@@ -64,7 +65,7 @@ const _KEY_COLOR_HUES := {
 
 var canpickupweapon := false
 var selectedweapontype: _WEAPON_TYPES
-var currweapontype: _WEAPON_TYPES
+var currweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
 var player: CharacterBody2D
 
 func place_item(item: _ITEM_TYPES, data: int, pos: Vector2) -> void:

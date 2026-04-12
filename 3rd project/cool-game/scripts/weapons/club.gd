@@ -1,6 +1,6 @@
 extends Weapon
 
-func _ready() -> void:
+func ready() -> void:
 	weapon_type = Global._WEAPON_TYPES.CLUB
 	stats = weapon_stats.club
 	update_to_weapon_type()

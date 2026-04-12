@@ -61,7 +61,7 @@ func _process(delta: float) -> void:
 			changestate(_STATES.IDLE)
 			forces[0] = Vector2(0, 0)
 	if state == _STATES.CHASE:
-		destination = %Player.global_position
+		destination = adjustChaseDestination(%Player.global_position, 15)
 		
 		var mult := speed / sqrt((destination.x - global_position.x) ** 2 + (destination.y - global_position.y) ** 2)
 		forces[0] = Vector2(destination.x - global_position.x, destination.y - global_position.y) * mult

@@ -105,6 +105,7 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_4t8w8")
 
 [node name="WanderTimer" type="Timer" parent="." unique_id=1992272716]
+one_shot = true
 
 [node name="StunTimer" type="Timer" parent="." unique_id=1926836225]
 wait_time = 0.3

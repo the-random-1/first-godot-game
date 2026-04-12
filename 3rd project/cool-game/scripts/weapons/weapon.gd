@@ -45,6 +45,7 @@ var weapon_stats = {
 	},
 }
 var stats: Dictionary
+var player: Node2D
 
 var state := _STATES.IDLE
 func change_state(newstate: _STATES):
@@ -54,24 +55,41 @@ func change_state(newstate: _STATES):
 	else:
 		collision_layer = 2
 
+
 var weapon_type: Global._WEAPON_TYPES
 var dir_of_aim: Vector2
 
-func get_rot_from_dir() -> int:
-	return [-30, 0, 30, -60, 0, 60, -135, 180, 135][[Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)].find(dir_of_aim)]
+func get_rot_from_dir() -> float:
+	var vector = get_mouse_angle()
+	var angle = asin(vector.x)
+	if vector.y > 0:
+		angle = PI - angle
+	return rad_to_deg(angle)
+
+func get_mouse_angle() -> Vector2:
+	var mouse_pos = get_global_mouse_position()
+	var player_pos = player.global_position
+	var mouse_distance := mouse_pos.distance_to(player_pos)
+	return (mouse_pos - player_pos) / mouse_distance
 
 func _physics_process(_delta: float) -> void:
-	if get_parent().forces[0].x != 0 || get_parent().forces[0].y != 0:
-		dir_of_aim = get_parent().forces[0]
-	
-	if state == _STATES.IDLE && (get_parent().forces[0].x != 0 || get_parent().forces[0].y != 0):
+	dir_of_aim = get_mouse_angle()
+
+	if state == _STATES.IDLE:
 		rotation_degrees = get_rot_from_dir()
-		position = get_parent().forces[0] * Vector2(4.5, 3.5) + Vector2(0, 2)
+		position = dir_of_aim * Vector2(4.5, 4.5) + Vector2(0, 2)
 	
-		if get_parent().forces[0].y >= 0:
+		if dir_of_aim.y >= 0:
 			z_index = 2
 		else:
 			z_index = 0
+
+func _ready() -> void:
+	player = get_parent() 
+	ready()
+
+func ready() -> void:
+	pass
 
 func update_to_weapon_type() -> void:
 	$Sprite2D.region_rect = Rect2(Global.weapon_constants[weapon_type].region.x, Global.weapon_constants[weapon_type].region.y, Global.weapon_constants[weapon_type].region.w, Global.weapon_constants[weapon_type].region.h)

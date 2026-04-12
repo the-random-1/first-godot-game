@@ -16,13 +16,14 @@ func changestate(newstate: _STATES) -> void:
 var stunspeedmultiplier := 1.0
 
 func _enemyinit() -> void:
-	speed = 110.0
+	speed = 98.0
 	max_health = 100.0
 	health = max_health
 	damage = 10.0
 	kb = 2.2
 	wander_time = Vector2(3.0, 5.0)
-	m = 1.0
+	m = 0.75
+	rand = increaseMagnitude(rand)
 	
 	pumpkindudehit.connect(%Player._pumpkindudehit)
 	body_entered.connect(_on_body_entered)
@@ -50,7 +51,7 @@ func _process(delta: float) -> void:
 			changestate(_STATES.IDLE)
 			forces[0] = Vector2(0, 0)
 	if state == _STATES.CHASE:
-		destination = %Player.global_position
+		destination = adjustChaseDestination(%Player.global_position, 20)
 		
 		var time := speed / destination.distance_to(global_position)
 		forces[0] = (destination - global_position) * time

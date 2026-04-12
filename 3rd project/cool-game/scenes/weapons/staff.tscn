@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqx7tugmocpcc"]
+[gd_scene format=3 uid="uid://bqx7tugmocpcc"]
 
 [ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_phck2"]
-[ext_resource type="Script" path="res://scripts/weapons/staff.gd" id="2_mxp47"]
+[ext_resource type="Script" uid="uid://65b74q5tkaoa" path="res://scripts/weapons/staff.gd" id="2_mxp47"]
 
-[node name="Staff" instance=ExtResource("1_phck2")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wqef"]
+size = Vector2(8, 30)
+
+[node name="Staff" unique_id=1860480540 instance=ExtResource("1_phck2")]
 script = ExtResource("2_mxp47")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -13.5)
 region_rect = Rect2(340, 128, 8, 31)
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = true
+position = Vector2(0, -13.5)
+shape = SubResource("RectangleShape2D_0wqef")

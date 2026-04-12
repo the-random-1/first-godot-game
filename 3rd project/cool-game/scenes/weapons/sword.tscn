@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw1ph7f5cni2a"]
+[gd_scene format=3 uid="uid://dw1ph7f5cni2a"]
 
 [ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_jdgqw"]
-[ext_resource type="Script" path="res://scripts/weapons/sword.gd" id="2_gouu4"]
+[ext_resource type="Script" uid="uid://dq7t50yhd0uin" path="res://scripts/weapons/sword.gd" id="2_gouu4"]
 
-[node name="Sword" instance=ExtResource("1_jdgqw")]
+[node name="Sword" unique_id=1088030400 instance=ExtResource("1_jdgqw")]
 script = ExtResource("2_gouu4")
 
 [node name="Sprite2D" parent="." index="0"]

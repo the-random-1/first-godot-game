@@ -11,7 +11,8 @@ enum _STATES {
 	WALK,
 	CHASE,
 	ATTACK,
-	STUNNED
+	STUNNED,
+	JUMP
 }
 var state := _STATES.IDLE
 func changestate(newstate: _STATES) -> void:
@@ -26,6 +27,7 @@ var damage: float
 var kb: float
 var wander_time: Vector2
 var m := 1.0
+var rand := randf_range(-1.0, 1.0)
 
 func set_health(newhealth: float) -> void:
 	if newhealth <= 0.0:
@@ -112,3 +114,12 @@ func _ready() -> void:
 
 func _enemyinit() -> void:
 	pass
+
+func adjustChaseDestination(origDest: Vector2, variance: int) -> Vector2:
+	return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand
+
+func increaseMagnitude(val: float) -> float:
+	return sqrt(abs(val)) * sign(val)
+
+func decreaseMagnitude(val: float) -> float:
+	return val ** 2 * sign(val)

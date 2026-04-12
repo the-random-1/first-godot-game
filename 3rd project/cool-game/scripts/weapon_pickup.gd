@@ -24,8 +24,10 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact") && Global.canpickupweapon:
-		weapon_pickups_ref.get_children()[Global.currweapontype].global_position = weapon_pickups_ref.get_children()[Global.selectedweapontype].global_position
-		Global.currweapontype = Global.selectedweapontype
+		if _weapon_type == Global.currweapontype:
+			global_position = weapon_pickups_ref.get_children()[Global.selectedweapontype].global_position
+		if _weapon_type == Global.selectedweapontype:
+			Global.currweapontype = Global.selectedweapontype
 		visible = Global.selectedweapontype != _weapon_type
 		$CollisionShape2D.disabled = Global.selectedweapontype == _weapon_type
 		playerfloatsover.emit(false, true)

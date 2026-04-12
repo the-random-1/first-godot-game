@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://deecafrfex2mb"]
+
+[ext_resource type="Script" uid="uid://o5jv6y73sskd" path="res://scripts/slime.gd" id="1_n6pvg"]
+[ext_resource type="Texture2D" uid="uid://ceqru8ufnhc14" path="res://assets/0x72_DungeonTilesetII_v1.7.png" id="2_pjw23"]
+[ext_resource type="PackedScene" uid="uid://bb2blt7ieb8ra" path="res://scenes/health_bar.tscn" id="3_2npkn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd6lc"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(432, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gstla"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(448, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5wyi"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(464, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l8pv"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(480, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnioy"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(432, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xjuo"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(448, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a02ik"]
+atlas = ExtResource("2_pjw23")
+region = Rect2(464, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pu8ps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd6lc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gstla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5wyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l8pv")
+}],
+"loop": true,
+"name": &"chase",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnioy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xjuo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a02ik")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd6lc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gstla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5wyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l8pv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g40cl"]
+size = Vector2(14, 12)
+
+[node name="Slime" type="Area2D" unique_id=456891580]
+script = ExtResource("1_n6pvg")
+metadata/_custom_type_script = "uid://clyqij5lpo3be"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1447308804]
+sprite_frames = SubResource("SpriteFrames_pu8ps")
+animation = &"chase"
+frame_progress = 0.336358
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2065690859]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_g40cl")
+
+[node name="HealthBar" parent="." unique_id=1101068679 instance=ExtResource("3_2npkn")]
+position = Vector2(0, -8)
+scale = Vector2(1.2, 1)
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=458263021]
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="." unique_id=763756536]
+wait_time = 2.0
+one_shot = true

@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg7f7uuwwt084"]
+[gd_scene format=3 uid="uid://cg7f7uuwwt084"]
 
 [ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_oioj8"]
-[ext_resource type="Script" path="res://scripts/weapons/club.gd" id="2_2puo4"]
+[ext_resource type="Script" uid="uid://fuw8hgxgc16s" path="res://scripts/weapons/club.gd" id="2_2puo4"]
 
-[node name="Club" instance=ExtResource("1_oioj8")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8sjt"]
+size = Vector2(10, 22)
+
+[node name="Club" unique_id=564353958 instance=ExtResource("1_oioj8")]
 script = ExtResource("2_2puo4")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -9)
 region_rect = Rect2(323, 41, 10, 22)
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = true
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_x8sjt")
