@@ -11,23 +11,14 @@ func _ready() -> void:
 	$CollisionShape2D.shape.set_size(Vector2(Global.weapon_constants[_weapon_type].region.w, Global.weapon_constants[_weapon_type].region.h))
 	if Global.weapon_constants[_weapon_type].region.h % 2 == 1:
 		$Sprite2D.offset.y = -0.5
-		
+	
 	playerfloatsover.connect(%UI.switchequiptextvisibility)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		playerfloatsover.emit(true, true)
 		Global.selectedweapontype = _weapon_type
+		Global.selectedweaponref = self
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		playerfloatsover.emit(false, false)
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("interact") && Global.canpickupweapon:
-		if _weapon_type == Global.currweapontype:
-			global_position = weapon_pickups_ref.get_children()[Global.selectedweapontype].global_position
-		if _weapon_type == Global.selectedweapontype:
-			Global.currweapontype = Global.selectedweapontype
-		visible = Global.selectedweapontype != _weapon_type
-		$CollisionShape2D.disabled = Global.selectedweapontype == _weapon_type
-		playerfloatsover.emit(false, true)

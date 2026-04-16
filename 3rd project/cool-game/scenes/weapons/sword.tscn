@@ -3,13 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://bb8m6d53ndgtr" path="res://scenes/weapons/weapon.tscn" id="1_jdgqw"]
 [ext_resource type="Script" uid="uid://dq7t50yhd0uin" path="res://scripts/weapons/sword.gd" id="2_gouu4"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3pnln"]
+size = Vector2(10, 22)
+
 [node name="Sword" unique_id=1088030400 instance=ExtResource("1_jdgqw")]
 script = ExtResource("2_gouu4")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1470533368]
 position = Vector2(0, -8.5)
 offset = Vector2(0, 0)
 region_rect = Rect2(339, 10, 10, 21)
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, -8.5)
+[node name="CollisionShape2D" parent="." index="1" unique_id=1555561429]
+visible = true
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_3pnln")

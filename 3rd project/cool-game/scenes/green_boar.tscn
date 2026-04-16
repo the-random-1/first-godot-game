@@ -134,6 +134,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StunTimer" type="Timer" parent="." unique_id=1165320139]
+wait_time = 2.1999999999999997
 one_shot = true
 
 [node name="HealthBar" parent="." unique_id=935615529 instance=ExtResource("3_e8j4l")]

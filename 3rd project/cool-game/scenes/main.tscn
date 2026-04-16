@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bmiekp426xfk8" path="res://scripts/canvas_layer.gd" id="10_s5ekq"]
 [ext_resource type="PackedScene" uid="uid://bhbo8c2xxg0cj" path="res://scenes/pumpkin_dude.tscn" id="12_87nrn"]
 [ext_resource type="PackedScene" uid="uid://28ma8movjv5x" path="res://scenes/inventory.tscn" id="13_dltgl"]
+[ext_resource type="PackedScene" uid="uid://deecafrfex2mb" path="res://scenes/slime.tscn" id="13_jbj1t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1tni"]
 texture = ExtResource("1_30xfn")
@@ -474,10 +475,17 @@ position = Vector2(645, 820)
 [node name="PumpkinDude2" parent="Enemies/EnemyBoundedArea3" unique_id=501737277 instance=ExtResource("12_87nrn")]
 position = Vector2(726, 773)
 
+[node name="EnemyBoundedArea4" parent="Enemies" unique_id=1068658420 instance=ExtResource("6_mxtan")]
+bounded_area_p1 = Vector2(63, 831)
+bounded_area_p2 = Vector2(273, 941)
+
+[node name="Slime" parent="Enemies/EnemyBoundedArea4" unique_id=456891580 instance=ExtResource("13_jbj1t")]
+position = Vector2(130, 908)
+
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(142, 427)
+position = Vector2(299, 881)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 

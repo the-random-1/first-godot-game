@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://65b74q5tkaoa" path="res://scripts/weapons/staff.gd" id="2_mxp47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wqef"]
-size = Vector2(8, 30)
+size = Vector2(8, 31.5)
 
 [node name="Staff" unique_id=1860480540 instance=ExtResource("1_phck2")]
 script = ExtResource("2_mxp47")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1470533368]
 position = Vector2(0, -13.5)
 region_rect = Rect2(340, 128, 8, 31)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=1555561429]
 visible = true
-position = Vector2(0, -13.5)
+position = Vector2(0, -14.25)
 shape = SubResource("RectangleShape2D_0wqef")

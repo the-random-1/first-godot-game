@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://5wdcm25dcj1w" path="res://scripts/weapons/longsword.gd" id="2_qdstc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qov7i"]
-size = Vector2(6, 29)
+size = Vector2(6, 30)
 
 [node name="Longsword" unique_id=1712637527 instance=ExtResource("1_3p2j7")]
 script = ExtResource("2_qdstc")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1470533368]
 position = Vector2(0, -12)
 region_rect = Rect2(293, 66, 6, 29)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=1555561429]
 visible = true
-position = Vector2(0, -12.5)
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_qov7i")

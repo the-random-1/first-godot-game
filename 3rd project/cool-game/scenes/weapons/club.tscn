@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://fuw8hgxgc16s" path="res://scripts/weapons/club.gd" id="2_2puo4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8sjt"]
-size = Vector2(10, 22)
+size = Vector2(12, 22.5)
 
 [node name="Club" unique_id=564353958 instance=ExtResource("1_oioj8")]
 script = ExtResource("2_2puo4")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1470533368]
 position = Vector2(0, -9)
 region_rect = Rect2(323, 41, 10, 22)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=1555561429]
 visible = true
-position = Vector2(0, -9.5)
+position = Vector2(0, -9.75)
 shape = SubResource("RectangleShape2D_x8sjt")

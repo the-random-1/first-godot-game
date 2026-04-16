@@ -77,6 +77,8 @@ func _greenboarhit(dmg: float) -> void:
 	change_health(-dmg)
 func _pumpkindudehit(dmg: float) -> void:
 	change_health(-dmg)
+func _slimehit(dmg: float) -> void:
+	change_health(-dmg)
 
 func _ready() -> void:
 	Global.player = self
@@ -103,6 +105,17 @@ func _process(_delta: float) -> void:
 		var weapon: PackedScene = load("res://scenes/weapons/" + ["sword", "longsword", "axe", "club", "staff"][Global.selectedweapontype] + ".tscn")
 		var new_weapon = weapon.instantiate()
 		add_child(new_weapon)
+
+		if Global.currweaponref:
+			Global.currweaponref.global_position = Global.selectedweaponref.global_position
+			Global.currweaponref.visible = true
+			Global.currweaponref.get_node("CollisionShape2D").disabled = false
+		Global.selectedweaponref.visible = false
+		Global.selectedweaponref.get_node("CollisionShape2D").disabled = true
+		Global.currweapontype = Global.selectedweapontype
+		Global.currweaponref = Global.selectedweaponref
+		%UI.switchequiptextvisibility(false, true)
+
 	if Input.is_action_just_pressed("inventory"):
 		inventoryisopen = !inventoryisopen
 		if inventoryisopen:

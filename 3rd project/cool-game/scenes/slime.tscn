@@ -64,10 +64,21 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fd6lc")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a02ik")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd6lc")
+}],
+"loop": true,
+"name": &"stunned",
 "speed": 5.0
 }, {
 "frames": [{
@@ -92,13 +103,13 @@ animations = [{
 size = Vector2(14, 12)
 
 [node name="Slime" type="Area2D" unique_id=456891580]
+z_index = 4
 script = ExtResource("1_n6pvg")
 metadata/_custom_type_script = "uid://clyqij5lpo3be"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1447308804]
 sprite_frames = SubResource("SpriteFrames_pu8ps")
-animation = &"chase"
-frame_progress = 0.336358
+animation = &"stunned"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2065690859]
 visible = false
@@ -113,5 +124,8 @@ scale = Vector2(1.2, 1)
 one_shot = true
 
 [node name="StunTimer" type="Timer" parent="." unique_id=763756536]
-wait_time = 2.0
+one_shot = true
+
+[node name="WaitForJumpTimer" type="Timer" parent="." unique_id=154709615]
+wait_time = 1.5
 one_shot = true

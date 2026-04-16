@@ -91,12 +91,6 @@ func _ready() -> void:
 func ready() -> void:
 	pass
 
-func update_to_weapon_type() -> void:
-	$Sprite2D.region_rect = Rect2(Global.weapon_constants[weapon_type].region.x, Global.weapon_constants[weapon_type].region.y, Global.weapon_constants[weapon_type].region.w, Global.weapon_constants[weapon_type].region.h)
-	$CollisionShape2D.shape.set_size(Vector2(Global.weapon_constants[weapon_type].region.w, Global.weapon_constants[weapon_type].region.h))
-	$Sprite2D.position.y = Global.weapon_constants[weapon_type].region.h / -2 + 2
-	$CollisionShape2D.position.y = Global.weapon_constants[weapon_type].region.h / -2 + 2
-
 var attack1: Callable
 
 func basic_swing(d1: float, d2: float, d3: float, slash_angle: float, trans: Tween.TransitionType):

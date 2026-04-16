@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://dafbggewm02ay" path="res://scripts/weapons/axe.gd" id="2_v3bkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w43rl"]
-size = Vector2(16, 23)
+size = Vector2(16, 24)
 
 [node name="Axe" unique_id=574333827 instance=ExtResource("1_kb3bb")]
 script = ExtResource("2_v3bkr")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1470533368]
 position = Vector2(0, -9)
 region_rect = Rect2(288, 167, 16, 24)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=1555561429]
 visible = true
-position = Vector2(0, -9.5)
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_w43rl")

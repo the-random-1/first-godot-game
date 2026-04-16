@@ -66,8 +66,11 @@ func apply_force(vel: Vector2, time: float, stun_movement: bool) -> void:
 	if stun_movement:
 		ignore_movement = false
 	forces.erase(indextouse)
-func move_with_velocity(delta: float) -> void:
-	global_position = (global_position + get_velocity_from_forces() * delta).clamp(Vector2(bounded_area_x1, bounded_area_y1), Vector2(bounded_area_x2, bounded_area_y2))
+func move_with_velocity(delta: float, clamp: bool = true) -> void:
+	if clamp:
+		global_position = (global_position + get_velocity_from_forces() * delta).clamp(Vector2(bounded_area_x1, bounded_area_y1), Vector2(bounded_area_x2, bounded_area_y2))
+	else:
+		global_position = (global_position + get_velocity_from_forces() * delta)
 	if (forces[0].x < 0):
 		$AnimatedSprite2D.flip_h = true
 	elif (forces[0].x > 0):
@@ -86,10 +89,14 @@ func _on_wander_timer_timeout() -> void:
 		time = global_position.distance_to(destination) / randf_range(.375 * speed, .875 * speed)
 		forces[0] = Vector2((destination.x - global_position.x) / time, (destination.y - global_position.y) / time)
 		newstate = _STATES.WALK
+		if self is Slime:
+			print("1")
 	
 	if (state == _STATES.WALK):
 		forces[0] = Vector2(0, 0)
 		newstate = _STATES.IDLE
+		if self is Slime:
+			print("0")
 	
 	changestate(newstate)
 	$WanderTimer.wait_time = time
@@ -114,6 +121,9 @@ func _ready() -> void:
 
 func _enemyinit() -> void:
 	pass
+
+func isplayerinboundedarea() -> bool:
+	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2
 
 func adjustChaseDestination(origDest: Vector2, variance: int) -> Vector2:
 	return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand

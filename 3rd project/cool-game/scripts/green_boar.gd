@@ -55,5 +55,5 @@ func _process(delta: float) -> void:
 	if state == _STATES.CHASE:
 		destination = adjustChaseDestination(%Player.global_position, 30)
 		
-		var mult := speed / destination.distance_to(global_position)
-		forces[0] = Vector2(destination.x - global_position.x, destination.y - global_position.y) * mult
+		var time := speed / destination.distance_to(global_position)
+		forces[0] = Vector2(destination.x - global_position.x, destination.y - global_position.y) * time
