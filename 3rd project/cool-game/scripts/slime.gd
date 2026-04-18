@@ -3,7 +3,7 @@ class_name Slime
 
 var wasinchase := false
 var jumpwindup := false
-var jumpspeed := 100.0
+var jumpspeed := 80.0
 
 signal slimehit(dmg: float)
 
@@ -76,29 +76,28 @@ func _attempt_jump() -> void:
 		jumpwindup = false
 		var tween = get_tree().create_tween()
 		
-		tween.tween_method(calculateTrajectory.bind(a, b), minf(x1, x2), maxf(x1, x2), absf(x1 - x2) / jumpspeed)
+		tween.tween_method(calculateTrajectory.bind(a, b, c), x1, x2, absf(x1 - x2) / jumpspeed)
 		tween.tween_callback(func(): changestate(_STATES.IDLE)).set_delay(absf(x1 - x2) / jumpspeed)
 	else:
 		$WaitForJumpTimer.start()
 
-func calculateTrajectory(x1: float, a: float, b: float) -> void:
+func calculateTrajectory(x1: float, a: float, b: float, c: float) -> void:
 	var slope := 2 * a * x1 + b
 	var den := sqrt(1 + slope ** 2)
-	forces[0] = Vector2(jumpspeed / den, slope * jumpspeed / den)
+	#forces[0] = Vector2(1 / den, slope / den) * jumpspeed
+	global_position = Vector2(x1, a * (x1 ** 2) + b * x1 + c)
 
 func _process(delta: float) -> void:
-	move_with_velocity(delta, state != _STATES.JUMP)
+	if state != _STATES.JUMP:
+		move_with_velocity(delta, state != _STATES.JUMP)
 	if isplayerinboundedarea():
-		if !wasinchase:
-			$WaitForJumpTimer.start()
+		if state == _STATES.IDLE || state == _STATES.WALK:
 			changestate(_STATES.CHASE)
-		wasinchase = true
+			$WaitForJumpTimer.start()
 	else:
-		if wasinchase:
+		if state == _STATES.CHASE:
 			$WaitForJumpTimer.stop()
-			if state == _STATES.CHASE:
-				changestate(_STATES.IDLE)
-		wasinchase = false
+			changestate(_STATES.IDLE)
 	
 	if state == _STATES.CHASE:
 		destination = adjustChaseDestination(%Player.global_position, 7)
