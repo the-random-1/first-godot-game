@@ -88,6 +88,7 @@ func calculateTrajectory(x: float, a: float, b: float, dir: float) -> void:
 	var slope := 2 * a * x1 + b
 	var den := sqrt(1 + slope ** 2)
 	forces[0] = Vector2(1 / den, slope / den) * jumpspeed * dir
+	# here
 
 func _process(delta: float) -> void:
 	move_with_velocity(delta, state != _STATES.JUMP)
