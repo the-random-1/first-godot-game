@@ -89,16 +89,13 @@ func _on_wander_timer_timeout() -> void:
 		time = global_position.distance_to(destination) / randf_range(.375 * speed, .875 * speed)
 		forces[0] = Vector2((destination.x - global_position.x) / time, (destination.y - global_position.y) / time)
 		newstate = _STATES.WALK
-		if self is Slime:
-			print("1")
 	
 	if (state == _STATES.WALK):
 		forces[0] = Vector2(0, 0)
 		newstate = _STATES.IDLE
-		if self is Slime:
-			print("0")
 	
-	changestate(newstate)
+	if state == _STATES.WALK || state == _STATES.IDLE:
+		changestate(newstate)
 	$WanderTimer.wait_time = time
 	$WanderTimer.start()
 

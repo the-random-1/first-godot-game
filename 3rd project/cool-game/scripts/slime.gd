@@ -3,7 +3,7 @@ class_name Slime
 
 var wasinchase := false
 var jumpwindup := false
-var jumpspeed := 80.0
+var jumpspeed := 20.0
 
 signal slimehit(dmg: float)
 
@@ -72,6 +72,11 @@ func _attempt_jump() -> void:
 		var a := 7.0 / absf(x1 - x2)
 		var b := (y1 - y2 - a * (x1 ** 2 - x2 ** 2)) / (x1 - x2)
 		var c := y1 - a * x1 ** 2 - b * x1
+		print(global_position)
+		print(destination)
+		print(a)
+		print(b)
+		print(c)
 		await get_tree().create_timer(2 / 3).timeout
 		jumpwindup = false
 		var tween = get_tree().create_tween()
@@ -83,13 +88,14 @@ func _attempt_jump() -> void:
 
 func calculateTrajectory(x1: float, a: float, b: float, c: float) -> void:
 	var slope := 2 * a * x1 + b
+	print(slope)
 	var den := sqrt(1 + slope ** 2)
-	#forces[0] = Vector2(1 / den, slope / den) * jumpspeed
-	global_position = Vector2(x1, a * (x1 ** 2) + b * x1 + c)
+	forces[0] = Vector2(1 / den, slope / den) * jumpspeed
+	#global_position = Vector2(x1, a * (x1 ** 2) + b * x1 + c)
 
 func _process(delta: float) -> void:
-	if state != _STATES.JUMP:
-		move_with_velocity(delta, state != _STATES.JUMP)
+	#if state != _STATES.JUMP:
+	move_with_velocity(delta, state != _STATES.JUMP)
 	if isplayerinboundedarea():
 		if state == _STATES.IDLE || state == _STATES.WALK:
 			changestate(_STATES.CHASE)
