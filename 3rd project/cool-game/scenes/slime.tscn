@@ -64,9 +64,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fd6lc")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_a02ik")
 }],
 "loop": false,
@@ -109,7 +106,7 @@ metadata/_custom_type_script = "uid://clyqij5lpo3be"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1447308804]
 sprite_frames = SubResource("SpriteFrames_pu8ps")
-animation = &"stunned"
+animation = &"jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2065690859]
 visible = false

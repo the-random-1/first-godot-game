@@ -2,8 +2,7 @@ extends Enemy
 class_name Slime
 
 var wasinchase := false
-var jumpwindup := false
-var jumpspeed := 20.0
+var jumpspeed := 100.0
 
 signal slimehit(dmg: float)
 
@@ -27,7 +26,7 @@ func changestate(newstate: _STATES) -> void:
 var jump_attack_damage := 40.0
 
 func _enemyinit() -> void:
-	speed = 70.0
+	speed = 40.0
 	max_health = 45.0
 	health = max_health
 	damage = 20.0
@@ -60,16 +59,15 @@ func _on_stun_timer_timeout() -> void:
 		wasinchase = false
 
 func _attempt_jump() -> void:
-	if isplayerinboundedarea() && global_position.distance_to(%Player.global_position) > 40:
-		jumpwindup = true
+	var destination: Vector2 = %Player.global_position
+	if isplayerinboundedarea() && global_position.distance_to(destination) > 40 && destination.x != global_position.x:
 		changestate(_STATES.JUMP)
-		destination = %Player.global_position
 		# Math
 		var x1 := global_position.x
 		var y1 := global_position.y
 		var x2 := destination.x
 		var y2 := destination.y
-		var a := 7.0 / absf(x1 - x2)
+		var a := 2.0 / absf(x1 - x2)
 		var b := (y1 - y2 - a * (x1 ** 2 - x2 ** 2)) / (x1 - x2)
 		var c := y1 - a * x1 ** 2 - b * x1
 		print(global_position)
@@ -77,24 +75,21 @@ func _attempt_jump() -> void:
 		print(a)
 		print(b)
 		print(c)
-		await get_tree().create_timer(2 / 3).timeout
-		jumpwindup = false
 		var tween = get_tree().create_tween()
 		
-		tween.tween_method(calculateTrajectory.bind(a, b, c), x1, x2, absf(x1 - x2) / jumpspeed)
-		tween.tween_callback(func(): changestate(_STATES.IDLE)).set_delay(absf(x1 - x2) / jumpspeed)
+		tween.tween_method(calculateTrajectory.bind(a, b, signf(x2 - x1)), x1, x2, absf(x1 - x2) / jumpspeed)
+		tween.tween_callback(func(): changestate(_STATES.IDLE))
 	else:
 		$WaitForJumpTimer.start()
 
-func calculateTrajectory(x1: float, a: float, b: float, c: float) -> void:
+func calculateTrajectory(x: float, a: float, b: float, dir: float) -> void:
+	var x1 := global_position.x
+	print(x - x1)
 	var slope := 2 * a * x1 + b
-	print(slope)
 	var den := sqrt(1 + slope ** 2)
-	forces[0] = Vector2(1 / den, slope / den) * jumpspeed
-	#global_position = Vector2(x1, a * (x1 ** 2) + b * x1 + c)
+	forces[0] = Vector2(1 / den, slope / den) * jumpspeed * dir
 
 func _process(delta: float) -> void:
-	#if state != _STATES.JUMP:
 	move_with_velocity(delta, state != _STATES.JUMP)
 	if isplayerinboundedarea():
 		if state == _STATES.IDLE || state == _STATES.WALK:
