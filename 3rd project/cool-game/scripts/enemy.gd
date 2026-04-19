@@ -38,10 +38,10 @@ func change_health(diff: float) -> void:
 	set_health(health + diff)
 
 # Physics
-var forces := {0: Vector2(0, 0)}
+var forces := {0: Vector2.ZERO}
 var ignore_movement := false
 func get_velocity_from_forces() -> Vector2:
-	var sumofforces := Vector2(0, 0)
+	var sumofforces := Vector2.ZERO
 	var i = 1
 	var j = 0
 	if ignore_movement:
@@ -91,7 +91,7 @@ func _on_wander_timer_timeout() -> void:
 		newstate = _STATES.WALK
 	
 	if (state == _STATES.WALK):
-		forces[0] = Vector2(0, 0)
+		forces[0] = Vector2.ZERO
 		newstate = _STATES.IDLE
 	
 	if state == _STATES.WALK || state == _STATES.IDLE:
@@ -109,6 +109,9 @@ func _on_area_entered(area: Area2D) -> void:
 			apply_force(Vector2((c - a) / sqrt((d - b) ** 2 + (c - a) ** 2), (d - b) / sqrt((d - b) ** 2 + (c - a) ** 2)) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
 			change_health(-area.stats.attack1.damage)
 
+func applyforcetoplayer(time: float) -> void:
+	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
+
 func _ready() -> void:
 	_enemyinit()
 	area_entered.connect(_on_area_entered)
@@ -123,7 +126,10 @@ func isplayerinboundedarea() -> bool:
 	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2
 
 func adjustChaseDestination(origDest: Vector2, variance: int) -> Vector2:
-	return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand
+	if global_position.distance_to(origDest) > 24:
+		return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand
+	else:
+		return origDest
 
 func increaseMagnitude(val: float) -> float:
 	return sqrt(abs(val)) * sign(val)

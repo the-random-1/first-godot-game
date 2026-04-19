@@ -35,8 +35,8 @@ func _on_body_entered(bodyc: Node2D) -> void:
 		changestate(_STATES.STUNNED)
 		$StunTimer.start()
 		greenboarhit.emit(damage)
-		%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), 0.25)
-		forces[0] = Vector2(0, 0)
+		applyforcetoplayer(0.25)
+		forces[0] = Vector2.ZERO
 
 func _on_stun_timer_timeout() -> void:
 	changestate(_STATES.IDLE)
@@ -51,9 +51,8 @@ func _process(delta: float) -> void:
 		if wasinchase && state != _STATES.STUNNED:
 			wasinchase = false
 			changestate(_STATES.IDLE)
-			forces[0] = Vector2(0, 0)
+			forces[0] = Vector2.ZERO
 	if state == _STATES.CHASE:
 		destination = adjustChaseDestination(%Player.global_position, 30)
 		
-		var time := speed / destination.distance_to(global_position)
-		forces[0] = Vector2(destination.x - global_position.x, destination.y - global_position.y) * time
+		forces[0] = speed * global_position.direction_to(destination)

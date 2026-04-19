@@ -33,7 +33,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		changestate(_STATES.ATTACK)
 		$AttackDelay.start()
-		forces[0] = Vector2(0, 0)
+		forces[0] = Vector2.ZERO
 
 func _on_attack_delay_timeout():
 	if global_position.distance_to(%Player.global_position) <= 16:
@@ -42,7 +42,7 @@ func _on_attack_delay_timeout():
 		if body.name == "Player":
 			changestate(_STATES.ATTACK)
 			$AttackDelay.start()
-			forces[0] = Vector2(0, 0)
+			forces[0] = Vector2.ZERO
 			return true
 	changestate(_STATES.IDLE)
 
@@ -59,9 +59,8 @@ func _process(delta: float) -> void:
 		if wasinchase:
 			wasinchase = false
 			changestate(_STATES.IDLE)
-			forces[0] = Vector2(0, 0)
+			forces[0] = Vector2.ZERO
 	if state == _STATES.CHASE:
 		destination = adjustChaseDestination(%Player.global_position, 15)
 		
-		var mult := speed / sqrt((destination.x - global_position.x) ** 2 + (destination.y - global_position.y) ** 2)
-		forces[0] = Vector2(destination.x - global_position.x, destination.y - global_position.y) * mult
+		forces[0] = speed * global_position.direction_to(destination)

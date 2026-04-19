@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://d26tnq5klilhi"]
+[gd_scene format=3 uid="uid://d26tnq5klilhi"]
 
 [ext_resource type="Texture2D" uid="uid://ceqru8ufnhc14" path="res://assets/0x72_DungeonTilesetII_v1.7.png" id="1_4rwtl"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_obdvl"]
+[ext_resource type="Script" uid="uid://crh6t6ovmem8f" path="res://scripts/player.gd" id="1_obdvl"]
 [ext_resource type="PackedScene" uid="uid://bb2blt7ieb8ra" path="res://scenes/health_bar.tscn" id="3_dav2g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8647f"]
@@ -103,21 +103,24 @@ animations = [{
 radius = 4.0
 height = 12.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=1446246500]
 scale = Vector2(0.7, 0.7)
 script = ExtResource("1_obdvl")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=849430369]
 z_index = 1
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_h6smp")
-animation = &"idle"
+animation = &"pause"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=383625776]
 visible = false
 shape = SubResource("CapsuleShape2D_ckifq")
 
-[node name="HealthBar" parent="." instance=ExtResource("3_dav2g")]
+[node name="HealthBar" parent="." unique_id=1373221304 instance=ExtResource("3_dav2g")]
 position = Vector2(0, -14.2857)
 scale = Vector2(2.2, 1)
+
+[node name="StunTimer" type="Timer" parent="." unique_id=1596965935]
+one_shot = true

@@ -49,9 +49,8 @@ func _process(delta: float) -> void:
 	else:
 		if !(state == _STATES.IDLE || state == _STATES.WALK):
 			changestate(_STATES.IDLE)
-			forces[0] = Vector2(0, 0)
+			forces[0] = Vector2.ZERO
 	if state == _STATES.CHASE:
 		destination = adjustChaseDestination(%Player.global_position, 20)
 		
-		var time := speed / destination.distance_to(global_position)
-		forces[0] = (destination - global_position) * time
+		forces[0] = speed * global_position.direction_to(destination)

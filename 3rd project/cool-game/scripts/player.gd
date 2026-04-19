@@ -16,11 +16,13 @@ func set_health(newhealth: float) -> void:
 	$HealthBar.set_healthbar(newhealth / 100)
 func change_health(diff: float) -> void:
 	set_health(health + diff)
-var forces := {0: Vector2(0, 0)}
+
+var forces := {0: Vector2.ZERO}
 func get_velocity_from_forces() -> Vector2:
-	var sumofforces = Vector2(0, 0)
+	var sumofforces = Vector2.ZERO
 	for force in forces.values():
-		sumofforces += force
+		if !(force == forces[0] && stunned):
+			sumofforces += force
 	return sumofforces
 func apply_force(vel: Vector2, time: float) -> void:
 	var indextouse := 0
@@ -33,6 +35,7 @@ func apply_force(vel: Vector2, time: float) -> void:
 	forces[indextouse] = vel
 	await get_tree().create_timer(time).timeout
 	forces.erase(indextouse)
+
 var inventory: Array[Dictionary] = []
 var inventoryisopen := false
 var inventoryisfull := false
@@ -63,6 +66,8 @@ func has_item(item: Global._ITEM_TYPES, data: int, amount: int = 1) -> bool:
 			return true
 	return false
 
+var stunned := false
+
 func change_state(new_state: _STATES):
 	if new_state == _STATES.IDLE:
 		$AnimatedSprite2D.play("idle")
@@ -79,12 +84,18 @@ func _pumpkindudehit(dmg: float) -> void:
 	change_health(-dmg)
 func _slimehit(dmg: float) -> void:
 	change_health(-dmg)
+	stun(1.25)
+func _slimejumphit(dmg: float) -> void:
+	change_health(-dmg)
+	stun(1.25)
 
 func _ready() -> void:
 	Global.player = self
+	$StunTimer.timeout.connect(stun_timer_timeout)
 
 func _physics_process(delta: float) -> void:
-	forces[0] = round(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
+	if !stunned:
+		forces[0] = round(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
 	velocity = SPEED * delta * get_velocity_from_forces()
 	move_and_slide()
 	
@@ -121,3 +132,13 @@ func _process(_delta: float) -> void:
 		if inventoryisopen:
 			%UI.reset_inventory_desc()
 		inventory_ref.visible = inventoryisopen
+
+func stun(length: float) -> void:
+	stunned = true
+	change_state(_STATES.PAUSE)
+	forces[0] = Vector2.ZERO
+	$StunTimer.wait_time = length
+	$StunTimer.start()
+
+func stun_timer_timeout() -> void:
+	stunned = false

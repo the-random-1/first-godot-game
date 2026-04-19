@@ -1,5 +1,11 @@
 extends Node
 
+func calculate_integral(lowerbound: float, upperbound: float, f: Callable, stepsize: float = 0.1) -> float:
+	var area := 0.0
+	for i in range(lowerbound / stepsize, upperbound / stepsize + 1):
+		area += f.call(i * stepsize) * stepsize
+	return area
+
 const weapon_constants := [
 	{ # sword
 		"region": {

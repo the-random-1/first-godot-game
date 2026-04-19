@@ -406,86 +406,115 @@ _weapon_type = 4
 [node name="Enemies" type="Node" parent="." unique_id=401435078]
 
 [node name="EnemyBoundedArea1" parent="Enemies" unique_id=1439318284 instance=ExtResource("6_mxtan")]
-bounded_area_p1 = Vector2(431, 79)
-bounded_area_p2 = Vector2(529, 173)
+custom_minimum_size = Vector2(106, 100)
+offset_left = 427.0
+offset_top = 79.0
+offset_right = 533.0
+offset_bottom = 179.0
 
 [node name="RedGuy1" parent="Enemies/EnemyBoundedArea1" unique_id=246247774 instance=ExtResource("5_l87ex")]
-position = Vector2(457, 103)
+position = Vector2(26, 24)
 
 [node name="RedGuy2" parent="Enemies/EnemyBoundedArea1" unique_id=805442495 instance=ExtResource("5_l87ex")]
-position = Vector2(501, 153)
+position = Vector2(70, 74)
 
 [node name="EnemyBoundedArea2" parent="Enemies" unique_id=15439948 instance=ExtResource("6_mxtan")]
-bounded_area_p1 = Vector2(175, 223)
-bounded_area_p2 = Vector2(369, 349)
+custom_minimum_size = Vector2(194, 126)
+offset_left = 171.0
+offset_top = 223.0
+offset_right = 373.0
+offset_bottom = 355.0
 
 [node name="RedGuy1" parent="Enemies/EnemyBoundedArea2" unique_id=1590536103 instance=ExtResource("5_l87ex")]
-position = Vector2(242, 285)
+position = Vector2(71, 63)
 
 [node name="RedGuy2" parent="Enemies/EnemyBoundedArea2" unique_id=1067357878 instance=ExtResource("5_l87ex")]
-position = Vector2(267, 255)
+position = Vector2(96, 33)
 
 [node name="RedGuy3" parent="Enemies/EnemyBoundedArea2" unique_id=2136163715 instance=ExtResource("5_l87ex")]
-position = Vector2(335, 253)
+position = Vector2(164, 31)
 
 [node name="RedGuy4" parent="Enemies/EnemyBoundedArea2" unique_id=1680481739 instance=ExtResource("5_l87ex")]
-position = Vector2(330, 311)
+position = Vector2(159, 89)
 
 [node name="RedGuy5" parent="Enemies/EnemyBoundedArea2" unique_id=1692808763 instance=ExtResource("5_l87ex")]
-position = Vector2(207, 324)
+position = Vector2(36, 102)
 
 [node name="RedGuy6" parent="Enemies/EnemyBoundedArea2" unique_id=1645142021 instance=ExtResource("5_l87ex")]
-position = Vector2(301, 338)
+position = Vector2(130, 116)
 
 [node name="GreenBoar" parent="Enemies/EnemyBoundedArea2" unique_id=1820030139 instance=ExtResource("8_mnnmc")]
-position = Vector2(201, 249)
+position = Vector2(30, 27)
 
 [node name="GreenBoar2" parent="Enemies/EnemyBoundedArea2" unique_id=1310704994 instance=ExtResource("8_mnnmc")]
-position = Vector2(286, 304)
+position = Vector2(115, 82)
 
 [node name="EnemyBoundedArea" parent="Enemies" unique_id=800321356 instance=ExtResource("6_mxtan")]
-bounded_area_p1 = Vector2(31, 463)
-bounded_area_p2 = Vector2(241, 605)
+offset_left = 27.0
+offset_top = 463.0
+offset_right = 245.0
+offset_bottom = 611.0
 
 [node name="GreenBoar" parent="Enemies/EnemyBoundedArea" unique_id=693016905 instance=ExtResource("8_mnnmc")]
-position = Vector2(65, 499)
+position = Vector2(38, 36)
 
 [node name="GreenBoar2" parent="Enemies/EnemyBoundedArea" unique_id=404585891 instance=ExtResource("8_mnnmc")]
-position = Vector2(151, 591)
+position = Vector2(124, 128)
 
 [node name="GreenBoar3" parent="Enemies/EnemyBoundedArea" unique_id=1116133144 instance=ExtResource("8_mnnmc")]
-position = Vector2(70, 591)
+position = Vector2(43, 128)
 
 [node name="GreenBoar4" parent="Enemies/EnemyBoundedArea" unique_id=158892294 instance=ExtResource("8_mnnmc")]
-position = Vector2(129, 520)
+position = Vector2(102, 57)
 
 [node name="GreenBoar5" parent="Enemies/EnemyBoundedArea" unique_id=1317292644 instance=ExtResource("8_mnnmc")]
-position = Vector2(200, 492)
+position = Vector2(173, 29)
 
 [node name="GreenBoar6" parent="Enemies/EnemyBoundedArea" unique_id=1647969917 instance=ExtResource("8_mnnmc")]
-position = Vector2(210, 548)
+position = Vector2(183, 85)
 
 [node name="EnemyBoundedArea3" parent="Enemies" unique_id=828874173 instance=ExtResource("6_mxtan")]
-bounded_area_p1 = Vector2(607, 735)
-bounded_area_p2 = Vector2(769, 845)
+custom_minimum_size = Vector2(162, 110)
+offset_left = 603.0
+offset_top = 735.0
+offset_right = 773.0
+offset_bottom = 851.0
 
 [node name="PumpkinDude" parent="Enemies/EnemyBoundedArea3" unique_id=820622387 instance=ExtResource("12_87nrn")]
-position = Vector2(645, 820)
+position = Vector2(124, 84)
 
 [node name="PumpkinDude2" parent="Enemies/EnemyBoundedArea3" unique_id=501737277 instance=ExtResource("12_87nrn")]
-position = Vector2(726, 773)
+position = Vector2(42, 35)
 
 [node name="EnemyBoundedArea4" parent="Enemies" unique_id=1068658420 instance=ExtResource("6_mxtan")]
-bounded_area_p1 = Vector2(63, 831)
-bounded_area_p2 = Vector2(273, 941)
+custom_minimum_size = Vector2(210, 110)
+offset_left = 59.0
+offset_top = 831.0
+offset_right = 277.0
+offset_bottom = 947.0
 
 [node name="Slime" parent="Enemies/EnemyBoundedArea4" unique_id=456891580 instance=ExtResource("13_jbj1t")]
-position = Vector2(130, 908)
+position = Vector2(66, 76)
+
+[node name="Slime2" parent="Enemies/EnemyBoundedArea4" unique_id=486721587 instance=ExtResource("13_jbj1t")]
+position = Vector2(156, 33)
+
+[node name="GreenBoar" parent="Enemies/EnemyBoundedArea4" unique_id=2006956800 instance=ExtResource("8_mnnmc")]
+position = Vector2(39, 36)
+
+[node name="RedGuy" parent="Enemies/EnemyBoundedArea4" unique_id=1110242893 instance=ExtResource("5_l87ex")]
+position = Vector2(175, 99)
+
+[node name="RedGuy2" parent="Enemies/EnemyBoundedArea4" unique_id=1692598705 instance=ExtResource("5_l87ex")]
+position = Vector2(96, 22)
+
+[node name="RedGuy3" parent="Enemies/EnemyBoundedArea4" unique_id=578058019 instance=ExtResource("5_l87ex")]
+position = Vector2(114, 99)
 
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(299, 881)
+position = Vector2(582, 817)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
