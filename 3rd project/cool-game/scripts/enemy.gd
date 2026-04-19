@@ -5,6 +5,11 @@ var bounded_area_x1: float
 var bounded_area_y1: float
 var bounded_area_x2: float
 var bounded_area_y2: float
+@export var favorite_area_x1: float
+@export var favorite_area_y1: float
+@export var favorite_area_x2: float
+@export var favorite_area_y2: float
+@export var favorite_area_chance := 0.0
 
 enum _STATES {
 	IDLE,
@@ -113,6 +118,10 @@ func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
 
 func _ready() -> void:
+	favorite_area_x1 = bounded_area_x1
+	favorite_area_y1 = bounded_area_y1
+	favorite_area_x2 = bounded_area_x2
+	favorite_area_y2 = bounded_area_y2
 	_enemyinit()
 	area_entered.connect(_on_area_entered)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
@@ -125,8 +134,8 @@ func _enemyinit() -> void:
 func isplayerinboundedarea() -> bool:
 	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2
 
-func adjustChaseDestination(origDest: Vector2, variance: int) -> Vector2:
-	if global_position.distance_to(origDest) > 24:
+func adjustChaseDestination(origDest: Vector2, variance: int, cutoffdistance: float = 24.0) -> Vector2:
+	if global_position.distance_to(origDest) > cutoffdistance:
 		return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand
 	else:
 		return origDest

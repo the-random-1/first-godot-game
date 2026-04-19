@@ -82,12 +82,12 @@ func _greenboarhit(dmg: float) -> void:
 	change_health(-dmg)
 func _pumpkindudehit(dmg: float) -> void:
 	change_health(-dmg)
-func _slimehit(dmg: float) -> void:
+func _slimehit(dmg: float, stuntime: float) -> void:
 	change_health(-dmg)
-	stun(1.25)
-func _slimejumphit(dmg: float) -> void:
+	stun(stuntime)
+func _slimejumphit(dmg: float, stuntime: float) -> void:
 	change_health(-dmg)
-	stun(1.25)
+	stun(stuntime)
 
 func _ready() -> void:
 	Global.player = self
