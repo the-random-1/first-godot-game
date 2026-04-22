@@ -124,3 +124,7 @@ scale = Vector2(2.2, 1)
 
 [node name="StunTimer" type="Timer" parent="." unique_id=1596965935]
 one_shot = true
+
+[node name="PracticalVelocityTimer" type="Timer" parent="." unique_id=1320720037]
+wait_time = 0.3
+autostart = true

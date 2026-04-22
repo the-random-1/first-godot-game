@@ -5,10 +5,10 @@ var bounded_area_x1: float
 var bounded_area_y1: float
 var bounded_area_x2: float
 var bounded_area_y2: float
-@export var favorite_area_x1: float
-@export var favorite_area_y1: float
-@export var favorite_area_x2: float
-@export var favorite_area_y2: float
+@export var favorite_area_x1 := 0.0
+@export var favorite_area_y1 := 0.0
+@export var favorite_area_x2 := 1.0
+@export var favorite_area_y2 := 1.0
 @export var favorite_area_chance := 0.0
 
 enum _STATES {
@@ -91,6 +91,12 @@ func _on_wander_timer_timeout() -> void:
 	if (state == _STATES.IDLE):
 		destination.x = randf_range(bounded_area_x1, bounded_area_x2)
 		destination.y = randf_range(bounded_area_y1, bounded_area_y2)
+		if !((favorite_area_x1 <= destination.x && destination.x <= favorite_area_x2) && (favorite_area_y1 <= destination.y && destination.y <= favorite_area_y2)) && favorite_area_chance > 0.0:
+			var P = (favorite_area_x2 - favorite_area_x1) * (favorite_area_y2 - favorite_area_y1)
+			if randf() < ((P - favorite_area_chance) / (P - 1)):
+				destination.x = randf_range(favorite_area_x1, favorite_area_x2)
+				destination.y = randf_range(favorite_area_y1, favorite_area_y2)
+		
 		time = global_position.distance_to(destination) / randf_range(.375 * speed, .875 * speed)
 		forces[0] = Vector2((destination.x - global_position.x) / time, (destination.y - global_position.y) / time)
 		newstate = _STATES.WALK
@@ -118,10 +124,6 @@ func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
 
 func _ready() -> void:
-	favorite_area_x1 = bounded_area_x1
-	favorite_area_y1 = bounded_area_y1
-	favorite_area_x2 = bounded_area_x2
-	favorite_area_y2 = bounded_area_y2
 	_enemyinit()
 	area_entered.connect(_on_area_entered)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)

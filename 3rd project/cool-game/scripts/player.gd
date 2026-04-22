@@ -92,6 +92,7 @@ func _slimejumphit(dmg: float, stuntime: float) -> void:
 func _ready() -> void:
 	Global.player = self
 	$StunTimer.timeout.connect(stun_timer_timeout)
+	$PracticalVelocityTimer.timeout.connect(update_practical_velocity)
 
 func _physics_process(delta: float) -> void:
 	if !stunned:
@@ -132,6 +133,21 @@ func _process(_delta: float) -> void:
 		if inventoryisopen:
 			%UI.reset_inventory_desc()
 		inventory_ref.visible = inventoryisopen
+
+var cycle := 0
+var old_pos := Vector2.ZERO
+var p_dis := Vector2.ZERO
+var practical_velocity := Vector2.ZERO
+func update_practical_velocity() -> void:
+	p_dis += global_position - old_pos
+	practical_velocity = p_dis / $PracticalVelocityTimer.wait_time / (cycle + 1)
+	old_pos = global_position
+	
+	if cycle == 2:
+		cycle = 0
+		p_dis = Vector2.ZERO
+	cycle += 1
+	print(practical_velocity)
 
 func stun(length: float) -> void:
 	stunned = true
