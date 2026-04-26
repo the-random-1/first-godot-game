@@ -127,7 +127,7 @@ func _process(_delta: float) -> void:
 		Global.currweapontype = Global.selectedweapontype
 		Global.currweaponref = Global.selectedweaponref
 		%UI.switchequiptextvisibility(false, true)
-
+	
 	if Input.is_action_just_pressed("inventory"):
 		inventoryisopen = !inventoryisopen
 		if inventoryisopen:
@@ -147,7 +147,6 @@ func update_practical_velocity() -> void:
 		cycle = 0
 		p_dis = Vector2.ZERO
 	cycle += 1
-	print(practical_velocity)
 
 func stun(length: float) -> void:
 	stunned = true

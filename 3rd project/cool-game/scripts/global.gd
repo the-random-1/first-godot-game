@@ -74,6 +74,7 @@ var selectedweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
 var selectedweaponref: Area2D
 var currweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
 var currweaponref: Area2D
+
 var player: CharacterBody2D
 
 func place_item(item: _ITEM_TYPES, data: int, pos: Vector2) -> void:

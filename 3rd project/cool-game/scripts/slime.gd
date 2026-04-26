@@ -56,7 +56,7 @@ func _on_body_entered(body: Node2D) -> void:
 			$StunTimer.wait_time = 0.9 + rand * 0.5
 			$StunTimer.start()
 			$WaitForJumpTimer.stop()
-			slimehit.emit(damage, stuntime)
+			slimehit.emit(damage, stuntime * 0.7)
 			applyforcetoplayer(0.25)
 
 func _on_stun_timer_timeout() -> void:
