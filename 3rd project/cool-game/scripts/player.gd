@@ -54,7 +54,7 @@ func add_item(item: Global._ITEM_TYPES, data: int, amount: int = 1) -> void:
 			inventory.append({"item" = item, "quantity" = amount, "data" = data})
 		if qIsZero:
 			remove_item(item, data)
-	inventoryisfull = inventory.size() == inventorysize
+	inventoryisfull = inventory.size() >= inventorysize
 func remove_item(item: Global._ITEM_TYPES, data: int) -> void:
 	for i in range(0, inventory.size()):
 		if inventory[i]["item"] == item && inventory[i]["data"] == data:
@@ -117,15 +117,8 @@ func _process(_delta: float) -> void:
 		var weapon: PackedScene = load("res://scenes/weapons/" + ["sword", "longsword", "axe", "club", "staff"][Global.selectedweapontype] + ".tscn")
 		var new_weapon = weapon.instantiate()
 		add_child(new_weapon)
-
-		if Global.currweaponref:
-			Global.currweaponref.global_position = Global.selectedweaponref.global_position
-			Global.currweaponref.visible = true
-			Global.currweaponref.get_node("CollisionShape2D").disabled = false
-		Global.selectedweaponref.visible = false
-		Global.selectedweaponref.get_node("CollisionShape2D").disabled = true
+		
 		Global.currweapontype = Global.selectedweapontype
-		Global.currweaponref = Global.selectedweaponref
 		%UI.switchequiptextvisibility(false, true)
 	
 	if Input.is_action_just_pressed("inventory"):

@@ -60,6 +60,7 @@ enum _WEAPON_TYPES {
 
 enum _ITEM_TYPES {
 	NOTHING,
+	WEAPON,
 	CHEST_KEY,
 	KEY
 }
@@ -71,9 +72,7 @@ const _KEY_COLOR_HUES := {
 
 var canpickupweapon := false
 var selectedweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
-var selectedweaponref: Area2D
 var currweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
-var currweaponref: Area2D
 
 var player: CharacterBody2D
 

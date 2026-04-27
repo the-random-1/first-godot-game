@@ -1,7 +1,5 @@
 extends Area2D
 
-@onready var weapon_pickups_ref: Node = $".."
-
 @export var _weapon_type: Global._WEAPON_TYPES
 
 signal playerfloatsover(visbility: bool)
