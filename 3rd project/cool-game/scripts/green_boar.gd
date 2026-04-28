@@ -41,7 +41,7 @@ func _on_body_entered(bodyc: Node2D) -> void:
 func _on_stun_timer_timeout() -> void:
 	changestate(_STATES.IDLE)
 
-func _process(delta: float) -> void:
+func process(delta: float) -> void:
 	move_with_velocity(delta)
 	if %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2:
 		if !(state == _STATES.CHASE || state == _STATES.STUNNED):

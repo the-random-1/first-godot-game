@@ -49,7 +49,7 @@ func _on_attack_delay_timeout():
 func die() -> void:
 	queue_free()
 
-func _process(delta: float) -> void:
+func process(delta: float) -> void:
 	move_with_velocity(delta)
 	if %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2:
 		if !(state == _STATES.CHASE || state == _STATES.ATTACK):

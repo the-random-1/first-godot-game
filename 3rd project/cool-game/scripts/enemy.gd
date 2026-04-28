@@ -71,8 +71,8 @@ func apply_force(vel: Vector2, time: float, stun_movement: bool) -> void:
 	if stun_movement:
 		ignore_movement = false
 	forces.erase(indextouse)
-func move_with_velocity(delta: float, clamp: bool = true) -> void:
-	if clamp:
+func move_with_velocity(delta: float, clamp_position: bool = true) -> void:
+	if clamp_position:
 		global_position = (global_position + get_velocity_from_forces() * delta).clamp(Vector2(bounded_area_x1, bounded_area_y1), Vector2(bounded_area_x2, bounded_area_y2))
 	else:
 		global_position = (global_position + get_velocity_from_forces() * delta)
@@ -98,7 +98,7 @@ func _on_wander_timer_timeout() -> void:
 				destination.y = randf_range(favorite_area_y1, favorite_area_y2)
 		
 		time = global_position.distance_to(destination) / randf_range(.375 * speed, .875 * speed)
-		forces[0] = Vector2((destination.x - global_position.x) / time, (destination.y - global_position.y) / time)
+		forces[0] = (destination - global_position) / time
 		newstate = _STATES.WALK
 	
 	if (state == _STATES.WALK):
@@ -112,12 +112,10 @@ func _on_wander_timer_timeout() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
-		var a = area.global_position.x
-		var b = area.global_position.y
-		var c = global_position.x
-		var d = global_position.y
+		var w = area.global_position
+		var p = global_position
 		if area.state == area._STATES.ATTACK1:
-			apply_force(Vector2((c - a) / sqrt((d - b) ** 2 + (c - a) ** 2), (d - b) / sqrt((d - b) ** 2 + (c - a) ** 2)) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
+			apply_force((p - w) / global_position.distance_to(area.global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
 			change_health(-area.stats.attack1.damage)
 
 func applyforcetoplayer(time: float) -> void:
@@ -131,6 +129,14 @@ func _ready() -> void:
 	$WanderTimer.start()
 
 func _enemyinit() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	process(delta)
+	if !isplayerinboundedarea():
+		pass
+
+func process(delta: float) -> void:
 	pass
 
 func isplayerinboundedarea() -> bool:

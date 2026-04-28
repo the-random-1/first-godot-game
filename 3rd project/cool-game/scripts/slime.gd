@@ -15,7 +15,7 @@ signal slimejumphit(dmg: float, stuntime: float)
 
 func changestate(newstate: _STATES) -> void:
 	state = newstate
-	var disablehitbox = func(): $CollisionShape2D.disabled = true
+	var disablehitbox = func(): $CollisionShape2D.disabled = false
 	match newstate:
 		_STATES.IDLE:
 			$AnimatedSprite2D.play("idle")
@@ -23,12 +23,12 @@ func changestate(newstate: _STATES) -> void:
 		_STATES.WALK:
 			$AnimatedSprite2D.play("walk")
 		_STATES.CHASE:
-			disablehitbox = func(): $CollisionShape2D.disabled = false
 			$AnimatedSprite2D.play("chase")
 		_STATES.STUNNED:
 			$AnimatedSprite2D.play("stunned")
 			forces[0] = Vector2.ZERO
 		_STATES.JUMP:
+			disablehitbox = func(): $CollisionShape2D.disabled = true
 			$AnimatedSprite2D.play("jump")
 			forces[0] = Vector2.ZERO
 	disablehitbox.call_deferred()
@@ -106,7 +106,7 @@ func calculateTrajectory(x: float, a: float, b: float, dir: float) -> void:
 	var den := sqrt(1 + slope ** 2)
 	forces[0] = Vector2(1 / den, slope / den) * jumpspeed * dir
 
-func _process(delta: float) -> void:
+func process(delta: float) -> void:
 	move_with_velocity(delta, state != _STATES.JUMP)
 	if isplayerinboundedarea():
 		if state == _STATES.IDLE || state == _STATES.WALK:

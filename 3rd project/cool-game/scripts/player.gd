@@ -117,9 +117,6 @@ func _process(_delta: float) -> void:
 		var weapon: PackedScene = load("res://scenes/weapons/" + ["sword", "longsword", "axe", "club", "staff"][Global.selectedweapontype] + ".tscn")
 		var new_weapon = weapon.instantiate()
 		add_child(new_weapon)
-		
-		Global.currweapontype = Global.selectedweapontype
-		%UI.switchequiptextvisibility(false, true)
 	
 	if Input.is_action_just_pressed("inventory"):
 		inventoryisopen = !inventoryisopen

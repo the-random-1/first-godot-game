@@ -7,10 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bvkvidlf7n1k7" path="res://assets/atlas_walls_low-16x16.png" id="3_p0qp6"]
 [ext_resource type="PackedScene" uid="uid://dxsu6n1fko7lg" path="res://scenes/locked_door.tscn" id="5_b4qi0"]
 [ext_resource type="PackedScene" uid="uid://cnb4yuh4vj7y7" path="res://scenes/red_guy.tscn" id="5_l87ex"]
-[ext_resource type="PackedScene" uid="uid://dp2wp5uecnfb" path="res://scenes/weapon_pickup.tscn" id="5_xdogo"]
 [ext_resource type="PackedScene" uid="uid://fwt2hkomatt8" path="res://scenes/enemy_bounded_area.tscn" id="6_mxtan"]
 [ext_resource type="PackedScene" uid="uid://dpb6kfqqc2v00" path="res://scenes/locked_chest.tscn" id="7_4cxrf"]
 [ext_resource type="PackedScene" uid="uid://bgsdhj4oom3mv" path="res://scenes/green_boar.tscn" id="8_mnnmc"]
+[ext_resource type="PackedScene" uid="uid://cy7p41vjqcejb" path="res://scenes/item_pickup.tscn" id="8_muem4"]
 [ext_resource type="PackedScene" uid="uid://cw3xcbpxsd2md" path="res://scenes/chest.tscn" id="10_6et61"]
 [ext_resource type="Script" uid="uid://bmiekp426xfk8" path="res://scripts/canvas_layer.gd" id="10_s5ekq"]
 [ext_resource type="PackedScene" uid="uid://bhbo8c2xxg0cj" path="res://scenes/pumpkin_dude.tscn" id="12_87nrn"]
@@ -364,7 +364,7 @@ keyhole_code = 2
 
 [node name="Chest" parent="Chests" unique_id=1135955526 instance=ExtResource("10_6et61")]
 position = Vector2(-176, 432)
-item = 2
+item = 3
 data = 1
 
 [node name="Chest2" parent="Chests" unique_id=961265501 instance=ExtResource("10_6et61")]
@@ -385,29 +385,29 @@ keyhole_color = "blue"
 
 [node name="WeaponPickups" type="Node" parent="." unique_id=638026278]
 
-[node name="Sword" parent="WeaponPickups" unique_id=1983173635 instance=ExtResource("5_xdogo")]
-z_index = 9
+[node name="Sword" parent="WeaponPickups" unique_id=1320014984 instance=ExtResource("8_muem4")]
 position = Vector2(232, -88)
+item = 1
 
-[node name="LongSword" parent="WeaponPickups" unique_id=1724707759 instance=ExtResource("5_xdogo")]
-z_index = 9
+[node name="LongSword" parent="WeaponPickups" unique_id=2102126217 instance=ExtResource("8_muem4")]
 position = Vector2(264, -88)
-_weapon_type = 1
+item = 1
+data = 1
 
-[node name="Axe" parent="WeaponPickups" unique_id=1150899915 instance=ExtResource("5_xdogo")]
-z_index = 9
+[node name="Axe" parent="WeaponPickups" unique_id=503251810 instance=ExtResource("8_muem4")]
 position = Vector2(296, -88)
-_weapon_type = 2
+item = 1
+data = 2
 
-[node name="Club" parent="WeaponPickups" unique_id=545076403 instance=ExtResource("5_xdogo")]
-z_index = 9
+[node name="Club" parent="WeaponPickups" unique_id=659969217 instance=ExtResource("8_muem4")]
 position = Vector2(328, -88)
-_weapon_type = 3
+item = 1
+data = 3
 
-[node name="Staff" parent="WeaponPickups" unique_id=1952754122 instance=ExtResource("5_xdogo")]
-z_index = 9
+[node name="Staff" parent="WeaponPickups" unique_id=1128509153 instance=ExtResource("8_muem4")]
 position = Vector2(360, -88)
-_weapon_type = 4
+item = 1
+data = 4
 
 [node name="Enemies" type="Node" parent="." unique_id=401435078]
 
@@ -529,7 +529,7 @@ position = Vector2(52, 34)
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(289, 886)
+position = Vector2(293, 883)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -563,3 +563,8 @@ text = "Click E to equip"
 
 [node name="Inventory" parent="UI" unique_id=757674332 instance=ExtResource("13_dltgl")]
 visible = false
+
+[node name="ItemPickup" parent="." unique_id=797157183 instance=ExtResource("8_muem4")]
+position = Vector2(329, 882)
+item = 1
+data = 1
