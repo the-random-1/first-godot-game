@@ -11,19 +11,21 @@ var player: CharacterBody2D
 func _ready() -> void:
 	if !player:
 		player = %Player
-	$Sprite2D.texture = Global.texture
+	
+	$Sprite2D.scale = Vector2.ONE
 	match item: # code for giving the item pickup its texture
 		Global._ITEM_TYPES.WEAPON:
-			$Sprite2D.scale = Vector2.ONE
+			$Sprite2D.texture = Global.texture
 			$Sprite2D.region_enabled = true
 			$Sprite2D.region_rect = Rect2(Global.weapon_constants[data].region.x, Global.weapon_constants[data].region.y, Global.weapon_constants[data].region.w, Global.weapon_constants[data].region.h)
 			$CollisionShape2D.shape.set_size(Vector2(Global.weapon_constants[data].region.w, Global.weapon_constants[data].region.h))
 			if Global.weapon_constants[data].region.h % 2 == 1:
 				$Sprite2D.offset.y = -0.5
 		Global._ITEM_TYPES.CHEST_KEY:
-			pass
+			$Sprite2D.texture = Global.chest_key_texture
+			$Sprite2D.modulate = Color.from_hsv(data as float / 360, 1.0, 0.75)
 		Global._ITEM_TYPES.KEY:
-			pass
+			$Sprite2D.texture = Global.key_texture
 		Global._ITEM_TYPES.NOTHING:
 			queue_free()
 		_:

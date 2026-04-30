@@ -3,8 +3,9 @@ extends Weapon
 func ready() -> void:
 	weapon_type = Global._WEAPON_TYPES.CLUB
 	stats = weapon_stats.club
-	attack1 = Callable(self, "basic_swing").bind(.7, .3, .2, 200, Tween.TRANS_QUINT)
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
-		attack1.call()
+func attack1() -> void:
+	basic_swing(.7, .3, .2, 200, Tween.TRANS_QUINT)
+
+func on_space() -> void:
+	attack1()

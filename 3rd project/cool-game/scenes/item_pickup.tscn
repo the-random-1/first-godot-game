@@ -2,11 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ct62pybpfggo3" path="res://scripts/item_pickup.gd" id="1_x68q3"]
 
-[sub_resource type="Gradient" id="Gradient_6iys1"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v5ser"]
-gradient = SubResource("Gradient_6iys1")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8cvg8"]
 size = Vector2(8, 8)
 
@@ -19,7 +14,6 @@ script = ExtResource("1_x68q3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1461097288]
 scale = Vector2(0.125, 0.125)
-texture = SubResource("GradientTexture2D_v5ser")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=255654188]
 shape = SubResource("RectangleShape2D_8cvg8")

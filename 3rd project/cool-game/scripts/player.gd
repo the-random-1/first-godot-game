@@ -8,6 +8,8 @@ enum _STATES {
 	PAUSE
 }
 
+signal space
+
 var SPEED := 5000
 var state := 0
 var health := 100.0: set = set_health
@@ -110,12 +112,17 @@ func _physics_process(delta: float) -> void:
 		change_state(_STATES.IDLE)
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("space"):
+		if !stunned:
+			space.emit()
+	
 	if Input.is_action_just_pressed("interact") && Global.canpickupweapon:
 		for child in get_children():
 			if child is Weapon:
 				child.queue_free()
 		var weapon: PackedScene = load("res://scenes/weapons/" + ["sword", "longsword", "axe", "club", "staff"][Global.selectedweapontype] + ".tscn")
 		var new_weapon = weapon.instantiate()
+		space.connect(new_weapon.on_space)
 		add_child(new_weapon)
 	
 	if Input.is_action_just_pressed("inventory"):

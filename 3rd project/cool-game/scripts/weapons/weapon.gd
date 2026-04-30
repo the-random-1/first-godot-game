@@ -91,7 +91,11 @@ func _ready() -> void:
 func ready() -> void:
 	pass
 
-var attack1: Callable
+func attack1() -> void:
+	pass
+
+func on_space() -> void:
+	pass
 
 func basic_swing(d1: float, d2: float, d3: float, slash_angle: float, trans: Tween.TransitionType):
 	if state == _STATES.IDLE:

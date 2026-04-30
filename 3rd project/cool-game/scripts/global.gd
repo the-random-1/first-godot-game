@@ -71,6 +71,8 @@ const _KEY_COLOR_HUES := {
 }
 
 var texture := load("res://assets/0x72_DungeonTilesetII_v1.7.png")
+var key_texture := load("res://assets/KeysPack/KeyGold.png")
+var chest_key_texture := load("res://assets/KeysPack/KeyWhite.png")
 
 var canpickupweapon := false
 var selectedweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
