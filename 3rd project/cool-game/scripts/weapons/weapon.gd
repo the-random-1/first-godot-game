@@ -74,8 +74,8 @@ func get_mouse_angle() -> Vector2:
 
 func _physics_process(_delta: float) -> void:
 	dir_of_aim = get_mouse_angle()
-
-	if state == _STATES.IDLE:
+	
+	if state == _STATES.IDLE && !player.stunned:
 		rotation_degrees = get_rot_from_dir()
 		position = dir_of_aim * Vector2(4.5, 4.5) + Vector2(0, 2)
 	

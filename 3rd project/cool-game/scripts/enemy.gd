@@ -132,11 +132,11 @@ func _enemyinit() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	process(delta)
 	if !isplayerinboundedarea() && state == _STATES.CHASE:
 		changestate(_STATES.IDLE)
 		$WanderTimer.wait_time = 0.01
 		$WanderTimer.start()
+	process(delta)
 
 func process(delta: float) -> void:
 	pass

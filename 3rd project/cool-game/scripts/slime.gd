@@ -15,7 +15,6 @@ signal slimejumphit(dmg: float, stuntime: float)
 
 func changestate(newstate: _STATES) -> void:
 	state = newstate
-	var disablehitbox = func(): $CollisionShape2D.disabled = false
 	match newstate:
 		_STATES.IDLE:
 			$AnimatedSprite2D.play("idle")
@@ -28,10 +27,8 @@ func changestate(newstate: _STATES) -> void:
 			$AnimatedSprite2D.play("stunned")
 			forces[0] = Vector2.ZERO
 		_STATES.JUMP:
-			disablehitbox = func(): $CollisionShape2D.disabled = true
 			$AnimatedSprite2D.play("jump")
 			forces[0] = Vector2.ZERO
-	disablehitbox.call_deferred()
 
 func _enemyinit() -> void:
 	speed = 90.0
@@ -69,9 +66,6 @@ func _attempt_jump() -> void:
 	if isplayerinboundedarea() && global_position.distance_to(jumpdestination) > jumpminradius && global_position.distance_to(jumpdestination) < jumpmaxradius && jumpdestination.x != global_position.x:
 		changestate(_STATES.JUMP)
 		
-		#jumpdestination += %Player.forces[0] * 32
-		#jumpdestination += %Player.forces[0] * global_position.distance_to(jumpdestination) * 0.07
-		#jumpdestination += Vector2(absf(%Player.forces[0].x * 7.0) ** 2, absf(%Player.forces[0].y * 7.0) ** 2) * Vector2(sign(%Player.forces[0].x), sign(%Player.forces[0].y))
 		if global_position.distance_to(jumpdestination) > 125:
 			jumpspeed = 245.0
 		else:
@@ -85,8 +79,6 @@ func _attempt_jump() -> void:
 		var a := jumpheightmultiplier / absf(x1 - x2)
 		var b := (y1 - y2 - a * (x1 ** 2 - x2 ** 2)) / (x1 - x2)
 		
-		#print(Vector2(destination.distance_to(global_position), Global.calculate_integral(minf(x1, x2), maxf(x1, x2), func(e): return sqrt((2 * a * e + b) ** 2 + 1)) / jumpspeed))
-
 		var tween = get_tree().create_tween()
 		tween.tween_method(calculateTrajectory.bind(a, b, signf(x2 - x1)), x1, x2, Global.calculate_integral(minf(x1, x2), maxf(x1, x2), func(e): return sqrt((2 * a * e + b) ** 2 + 1)) / jumpspeed)
 		tween.tween_callback(landjump)
