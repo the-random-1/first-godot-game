@@ -132,10 +132,12 @@ func _enemyinit() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	if !isplayerinboundedarea() && state == _STATES.CHASE:
-		changestate(_STATES.IDLE)
-		$WanderTimer.wait_time = 0.01
-		$WanderTimer.start()
+	if !isplayerinboundedarea():
+		set_health(max_health)
+		if state == _STATES.CHASE:
+			changestate(_STATES.IDLE)
+			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * .2
+			$WanderTimer.start()
 	process(delta)
 
 func process(delta: float) -> void:

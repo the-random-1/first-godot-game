@@ -18,7 +18,7 @@ var wasinchase := false
 signal redguyhit(dmg: float)
 
 func _enemyinit() -> void:
-	speed = 40.0
+	speed = 55.0
 	max_health = 50.0
 	health = max_health
 	damage = 7.0
