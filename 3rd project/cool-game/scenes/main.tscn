@@ -370,9 +370,6 @@ data = 1
 [node name="Chest2" parent="Chests" unique_id=961265501 instance=ExtResource("10_6et61")]
 position = Vector2(-104, 891)
 
-[node name="Chest3" parent="Chests" unique_id=1962023743 instance=ExtResource("10_6et61")]
-position = Vector2(-80, 768)
-
 [node name="Locked Chest" parent="Chests" unique_id=1270204603 instance=ExtResource("7_4cxrf")]
 position = Vector2(-216, 432)
 keyhole_color = "red"
@@ -382,6 +379,11 @@ position = Vector2(-136, 432)
 keyhole_color = "blue"
 
 [node name="ItemPickups" type="Node" parent="." unique_id=158264214]
+
+[node name="RedKey" parent="ItemPickups" unique_id=1209976623 instance=ExtResource("8_muem4")]
+position = Vector2(-80, 768)
+item = 2
+data = 350
 
 [node name="WeaponPickups" type="Node" parent="." unique_id=638026278]
 
@@ -529,7 +531,7 @@ position = Vector2(52, 34)
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(293, 887)
+position = Vector2(-15, 789)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 

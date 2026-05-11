@@ -13,6 +13,7 @@ func _ready() -> void:
 		player = %Player
 	
 	$Sprite2D.scale = Vector2.ONE
+	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
 	match item: # code for giving the item pickup its texture
 		Global._ITEM_TYPES.WEAPON:
 			$Sprite2D.texture = Global.texture
@@ -24,6 +25,7 @@ func _ready() -> void:
 		Global._ITEM_TYPES.CHEST_KEY:
 			$Sprite2D.texture = Global.chest_key_texture
 			$Sprite2D.modulate = Color.from_hsv(data as float / 360, 1.0, 0.75)
+			$CollisionShape2D.shape.set_size(Vector2(16, 6))
 		Global._ITEM_TYPES.KEY:
 			$Sprite2D.texture = Global.key_texture
 		Global._ITEM_TYPES.NOTHING:
