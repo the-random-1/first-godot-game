@@ -28,6 +28,10 @@ func _ready() -> void:
 			$CollisionShape2D.shape.set_size(Vector2(16, 6))
 		Global._ITEM_TYPES.KEY:
 			$Sprite2D.texture = Global.key_texture
+		Global._ITEM_TYPES.ABILITY_BOOK:
+			pass
+		Global._ITEM_TYPES.ABILITY_PAGE:
+			pass
 		Global._ITEM_TYPES.NOTHING:
 			queue_free()
 		_:
