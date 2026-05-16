@@ -18,7 +18,7 @@ var weapon_stats = {
 	"longsword": {
 		"attack1": {
 			"damage": 20,
-			"kb": 65,
+			"kb": 70,
 			"kbt": .2
 		}
 	},
@@ -55,25 +55,20 @@ func change_state(newstate: _STATES):
 	else:
 		collision_layer = 2
 
+var hitbox_size: Vector2
 
 var weapon_type: Global._WEAPON_TYPES
 var dir_of_aim: Vector2
 
 func get_rot_from_dir() -> float:
-	var vector = get_mouse_angle()
+	var vector = player.global_position.direction_to(get_global_mouse_position())
 	var angle = asin(vector.x)
 	if vector.y > 0:
 		angle = PI - angle
 	return rad_to_deg(angle)
 
-func get_mouse_angle() -> Vector2:
-	var mouse_pos = get_global_mouse_position()
-	var player_pos = player.global_position
-	var mouse_distance := mouse_pos.distance_to(player_pos)
-	return (mouse_pos - player_pos) / mouse_distance
-
 func _physics_process(_delta: float) -> void:
-	dir_of_aim = get_mouse_angle()
+	dir_of_aim = player.global_position.direction_to(get_global_mouse_position())
 	
 	if state == _STATES.IDLE && !player.stunned:
 		rotation_degrees = get_rot_from_dir()
@@ -85,7 +80,8 @@ func _physics_process(_delta: float) -> void:
 			z_index = 0
 
 func _ready() -> void:
-	player = get_parent() 
+	player = get_parent()
+	#hitbox_size = $CollisionShape2D.size
 	ready()
 
 func ready() -> void:

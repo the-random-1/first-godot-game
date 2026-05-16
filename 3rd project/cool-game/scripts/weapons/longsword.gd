@@ -5,7 +5,7 @@ func ready() -> void:
 	stats = weapon_stats.longsword
 
 func attack1() -> void:
-	basic_swing(.25, .2, .1, 220, Tween.TRANS_EXPO)
+	basic_swing(.21, .15, .08, 220, Tween.TRANS_EXPO)
 
 func on_space() -> void:
 	attack1()

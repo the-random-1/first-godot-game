@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://fwt2hkomatt8"]
 
-[ext_resource type="Script" uid="uid://cbfivviakhgc0" path="res://scripts/enemy_bounded_area.gd" id="1_bdegg"]
+[ext_resource type="Script" uid="uid://cbfivviakhgc0" path="res://scripts/enemies/main/enemy_bounded_area.gd" id="1_bdegg"]
 
 [node name="EnemyBoundedArea" type="ColorRect" unique_id=1646237365]
 color = Color(1, 1, 1, 0)

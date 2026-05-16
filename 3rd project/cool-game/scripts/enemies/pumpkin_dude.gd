@@ -7,6 +7,7 @@ func changestate(newstate: _STATES) -> void:
 	state = newstate
 	match newstate:
 		_STATES.IDLE:
+			forces[0] = Vector2.ZERO
 			$AnimatedSprite2D.play("idle")
 		_STATES.WALK:
 			$AnimatedSprite2D.play("walk")
