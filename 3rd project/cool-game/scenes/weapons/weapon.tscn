@@ -7,7 +7,6 @@
 size = Vector2(10, 21)
 
 [node name="Weapon" type="Area2D" unique_id=1638482156]
-collision_layer = 2
 script = ExtResource("1_kre05")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1470533368]
@@ -20,6 +19,7 @@ region_rect = Rect2(293, 10, 6, 13)
 visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_7v2q7")
+disabled = true
 
 [node name="Attack1Cooldown" type="Timer" parent="." unique_id=1102698318]
 one_shot = true

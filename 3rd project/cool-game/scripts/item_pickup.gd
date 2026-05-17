@@ -25,9 +25,12 @@ func _ready() -> void:
 		Global._ITEM_TYPES.CHEST_KEY:
 			$Sprite2D.texture = Global.chest_key_texture
 			$Sprite2D.modulate = Color.from_hsv(data as float / 360, 1.0, 0.75)
-			$CollisionShape2D.shape.set_size(Vector2(16, 6))
+			$CollisionShape2D.shape.set_size(Vector2(16, 7))
+			$Sprite2D.scale = 0.85 * Vector2.ONE
 		Global._ITEM_TYPES.KEY:
 			$Sprite2D.texture = Global.key_texture
+			$CollisionShape2D.shape.set_size(Vector2(22, 9))
+			$Sprite2D.scale = 1.2 * Vector2.ONE
 		Global._ITEM_TYPES.ABILITY_BOOK:
 			pass
 		Global._ITEM_TYPES.ABILITY_PAGE:

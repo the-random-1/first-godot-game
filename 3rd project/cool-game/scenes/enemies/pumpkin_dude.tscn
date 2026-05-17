@@ -87,7 +87,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4t8w8"]
-size = Vector2(14, 15)
+size = Vector2(14, 18)
 
 [node name="PumpkinDude" type="Area2D" unique_id=501737277]
 z_index = 4
@@ -101,7 +101,7 @@ frame_progress = 0.736525
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=453210794]
 visible = false
-position = Vector2(0, 2.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_4t8w8")
 
 [node name="WanderTimer" type="Timer" parent="." unique_id=1992272716]

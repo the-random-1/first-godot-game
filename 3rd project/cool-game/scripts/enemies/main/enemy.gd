@@ -112,11 +112,9 @@ func _on_wander_timer_timeout() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
-		var w = area.global_position
-		var p = global_position
-		if area.state == area._STATES.ATTACK1:
-			apply_force((p - w) / global_position.distance_to(area.global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
-			change_health(-area.stats.attack1.damage)
+		apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
+		change_health(-area.stats.attack1.damage)
+		print(self)
 
 func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
@@ -136,7 +134,7 @@ func _process(delta: float) -> void:
 		set_health(max_health)
 		if state == _STATES.CHASE:
 			changestate(_STATES.IDLE)
-			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * .2
+			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 09.2
 			$WanderTimer.start()
 	process(delta)
 

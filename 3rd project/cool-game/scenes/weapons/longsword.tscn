@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://5wdcm25dcj1w" path="res://scripts/weapons/longsword.gd" id="2_qdstc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qov7i"]
-size = Vector2(6, 30)
+size = Vector2(12, 30)
 
 [node name="Longsword" unique_id=1712637527 instance=ExtResource("1_3p2j7")]
 script = ExtResource("2_qdstc")

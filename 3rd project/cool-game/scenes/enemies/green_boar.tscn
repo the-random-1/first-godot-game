@@ -112,7 +112,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrrd5"]
-size = Vector2(9, 7)
+size = Vector2(11, 10)
 
 [node name="GreenBoar" type="Area2D" unique_id=2006956800]
 z_index = 4
@@ -122,11 +122,11 @@ script = ExtResource("1_kmh8y")
 sprite_frames = SubResource("SpriteFrames_4j87y")
 animation = &"chase"
 autoplay = "idle"
-frame_progress = 0.900692
+frame_progress = 0.122437336
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1141287904]
 visible = false
-position = Vector2(-0.5, 2)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_nrrd5")
 
 [node name="WanderTimer" type="Timer" parent="." unique_id=1348087037]

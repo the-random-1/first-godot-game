@@ -97,7 +97,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g40cl"]
-size = Vector2(14, 12)
+size = Vector2(16, 13)
 
 [node name="Slime" type="Area2D" unique_id=456891580]
 z_index = 4
@@ -110,7 +110,7 @@ animation = &"stunned"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2065690859]
 visible = false
-position = Vector2(0, 1)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_g40cl")
 
 [node name="HealthBar" parent="." unique_id=1101068679 instance=ExtResource("3_2npkn")]

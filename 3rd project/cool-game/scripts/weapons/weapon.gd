@@ -3,8 +3,7 @@ class_name Weapon
 
 enum _STATES {
 	IDLE,
-	ATTACK1,
-	ATTACK1C
+	ATTACK1
 }
 
 var weapon_stats = {
@@ -50,10 +49,6 @@ var player: Node2D
 var state := _STATES.IDLE
 func change_state(newstate: _STATES):
 	state = newstate
-	if newstate == _STATES.ATTACK1:
-		collision_layer = 1
-	else:
-		collision_layer = 2
 
 var hitbox_size: Vector2
 
@@ -95,7 +90,8 @@ func on_space() -> void:
 
 func basic_swing(d1: float, d2: float, d3: float, slash_angle: float, trans: Tween.TransitionType):
 	if state == _STATES.IDLE:
-		change_state(_STATES.ATTACK1C)
+		change_state(_STATES.ATTACK1)
+		$CollisionShape2D.disabled = true
 		
 		var attack1_rot_dir := 1
 		if dir_of_aim.x < 0:
@@ -106,8 +102,13 @@ func basic_swing(d1: float, d2: float, d3: float, slash_angle: float, trans: Twe
 		tween.set_trans(trans)
 		
 		tween.tween_property(self, "rotation_degrees", -slash_angle / 2 * attack1_rot_dir, d1).as_relative()
-		tween.tween_callback(func(): change_state(_STATES.ATTACK1))
+		#tween.tween_callback(func(): $CollisionShape2D.disabled = false)
 		tween.tween_property(self, "rotation_degrees", slash_angle * attack1_rot_dir, d2).as_relative()
-		tween.tween_callback(func(): change_state(_STATES.ATTACK1C))
+		#tween.tween_callback(func(): $CollisionShape2D.disabled = true)
 		tween.tween_property(self, "rotation_degrees", -slash_angle / 2 * attack1_rot_dir, d3).as_relative()
 		tween.tween_callback(func(): change_state(_STATES.IDLE))
+		
+		await get_tree().create_timer(max(d1 - 0.1, 0.1))
+		$CollisionShape2D.disabled = false
+		await get_tree().create_timer(max(d1 + d2 - 0.2, 0.2))
+		$CollisionShape2D.disabled = true
