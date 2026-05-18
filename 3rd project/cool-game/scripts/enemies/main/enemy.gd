@@ -134,7 +134,7 @@ func _process(delta: float) -> void:
 		set_health(max_health)
 		if state == _STATES.CHASE:
 			changestate(_STATES.IDLE)
-			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 09.2
+			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
 			$WanderTimer.start()
 	process(delta)
 

@@ -532,17 +532,19 @@ position = Vector2(128, 36)
 favorite_area_x2 = 0.6
 favorite_area_y2 = 0.8
 
+[node name="GreenBoar2" parent="Enemies/EnemyBoundedArea5" unique_id=2034625776 instance=ExtResource("8_mnnmc")]
+position = Vector2(98, 83)
+favorite_area_x2 = 0.6
+favorite_area_y2 = 0.8
+
 [node name="RedGuy" parent="Enemies/EnemyBoundedArea5" unique_id=1110242893 instance=ExtResource("5_l87ex")]
 position = Vector2(218, 95)
 
 [node name="RedGuy2" parent="Enemies/EnemyBoundedArea5" unique_id=1692598705 instance=ExtResource("5_l87ex")]
-position = Vector2(98, 77)
+position = Vector2(42, 32)
 
 [node name="RedGuy3" parent="Enemies/EnemyBoundedArea5" unique_id=578058019 instance=ExtResource("5_l87ex")]
 position = Vector2(157, 95)
-
-[node name="RedGuy4" parent="Enemies/EnemyBoundedArea5" unique_id=1731884616 instance=ExtResource("5_l87ex")]
-position = Vector2(52, 34)
 
 [node name="EnemyBoundedArea6" parent="Enemies" unique_id=1646237365 instance=ExtResource("6_mxtan")]
 offset_left = 875.0
@@ -626,7 +628,7 @@ favorite_area_chance = 0.75
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(1283, 871)
+position = Vector2(305, 881)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -661,6 +663,5 @@ text = "Click E to equip"
 visible = false
 
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
-position = Vector2(1281, 856)
+position = Vector2(301, 885)
 item = 1
-data = 1

@@ -102,13 +102,10 @@ func basic_swing(d1: float, d2: float, d3: float, slash_angle: float, trans: Twe
 		tween.set_trans(trans)
 		
 		tween.tween_property(self, "rotation_degrees", -slash_angle / 2 * attack1_rot_dir, d1).as_relative()
-		#tween.tween_callback(func(): $CollisionShape2D.disabled = false)
 		tween.tween_property(self, "rotation_degrees", slash_angle * attack1_rot_dir, d2).as_relative()
-		#tween.tween_callback(func(): $CollisionShape2D.disabled = true)
+		tween.tween_callback(func(): $CollisionShape2D.disabled = true)
 		tween.tween_property(self, "rotation_degrees", -slash_angle / 2 * attack1_rot_dir, d3).as_relative()
 		tween.tween_callback(func(): change_state(_STATES.IDLE))
 		
-		await get_tree().create_timer(max(d1 - 0.1, 0.1))
+		await get_tree().create_timer(max(d1 - 0.05, 0.05)).timeout
 		$CollisionShape2D.disabled = false
-		await get_tree().create_timer(max(d1 + d2 - 0.2, 0.2))
-		$CollisionShape2D.disabled = true

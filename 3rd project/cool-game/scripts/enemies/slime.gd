@@ -32,12 +32,12 @@ func changestate(newstate: _STATES) -> void:
 
 func _enemyinit() -> void:
 	speed = 90.0
-	max_health = 45.0
+	max_health = 150.0
 	health = max_health
 	damage = 20.0
 	kb = 1
 	wander_time = Vector2(0.75, 2.0)
-	m = 1.0
+	m = 2.5
 	rand = increaseMagnitude(rand)
 	
 	slimehit.connect(%Player._slimehit)
