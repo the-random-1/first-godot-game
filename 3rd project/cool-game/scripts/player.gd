@@ -95,6 +95,7 @@ func _ready() -> void:
 	Global.player = self
 	$StunTimer.timeout.connect(stun_timer_timeout)
 	$PracticalVelocityTimer.timeout.connect(update_practical_velocity)
+	$"../Level/Floor".set_cell(Vector2i(60, 42))
 
 func _physics_process(delta: float) -> void:
 	if !stunned:

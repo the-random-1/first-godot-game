@@ -5,7 +5,7 @@ func ready() -> void:
 	stats = weapon_stats.axe
 
 func attack1() -> void:
-	basic_swing(.6, .4, .5, 250, Tween.TRANS_QUINT)
+	basic_swing(stats.attack1.timings[0], stats.attack1.timings[1], stats.attack1.timings[2], stats.attack1.angle, stats.attack1.transition_type)
 
 func on_space() -> void:
 	attack1()

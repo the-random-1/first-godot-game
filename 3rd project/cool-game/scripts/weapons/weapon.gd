@@ -11,28 +11,40 @@ var weapon_stats = {
 		"attack1": {
 			"damage": 25,
 			"kb": 90,
-			"kbt": .25
+			"kbt": .25,
+			"angle": 180,
+			"timings": [.2, .3, .1],
+			"transition_type": Tween.TransitionType.TRANS_EXPO
 		}
 	},
 	"longsword": {
 		"attack1": {
 			"damage": 20,
 			"kb": 70,
-			"kbt": .2
+			"kbt": .2,
+			"angle": 220,
+			"timings": [.21, .15, .08],
+			"transition_type": Tween.TransitionType.TRANS_EXPO
 		}
 	},
 	"axe": {
 		"attack1": {
 			"damage": 40,
 			"kb": 150,
-			"kbt": .275
+			"kbt": .275,
+			"angle": 250,
+			"timings": [.6, .4, .5],
+			"transition_type": Tween.TransitionType.TRANS_QUINT
 		}
 	},
 	"club": {
 		"attack1": {
 			"damage": 45,
 			"kb": 200,
-			"kbt": .18
+			"kbt": .18,
+			"angle": 200,
+			"timings": [.7, .3, .2],
+			"transition_type": Tween.TransitionType.TRANS_QUINT
 		}
 	},
 	"staff": {
