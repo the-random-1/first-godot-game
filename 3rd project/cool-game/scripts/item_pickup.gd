@@ -12,6 +12,7 @@ func _ready() -> void:
 	if !player:
 		player = %Player
 	
+	visible = false
 	$Sprite2D.scale = Vector2.ONE
 	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
 	match item: # code for giving the item pickup its texture
@@ -32,13 +33,18 @@ func _ready() -> void:
 			$CollisionShape2D.shape.set_size(Vector2(22, 9))
 			$Sprite2D.scale = 1.2 * Vector2.ONE
 		Global._ITEM_TYPES.ABILITY_BOOK:
-			pass
+			$Sprite2D.texture = Global.ability_book_texture
+			$CollisionShape2D.shape.set_size(Vector2(14, 16))
 		Global._ITEM_TYPES.ABILITY_PAGE:
-			pass
+			$Sprite2D.scale = 0.1 * Vector2.ONE
+			$Sprite2D.region_enabled = true
+			$Sprite2D.region_rect = Rect2(300, 40, 170, 190)
+			$Sprite2D.texture = Global.ability_page_texture
 		Global._ITEM_TYPES.NOTHING:
 			queue_free()
 		_:
 			pass
+	visible = true
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact") && playercanpickup && !player.inventoryisfull:
