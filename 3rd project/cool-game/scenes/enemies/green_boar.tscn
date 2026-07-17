@@ -73,7 +73,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1uk78")
 }],
-"loop": true,
+"loop": 1,
 "name": &"chase",
 "speed": 14.0
 }, {
@@ -84,7 +84,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qpnll")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 3.0
 }, {
@@ -92,7 +92,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fqmhv")
 }],
-"loop": false,
+"loop": 0,
 "name": &"stunned",
 "speed": 1.0
 }, {
@@ -106,7 +106,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fd2y1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 7.0
 }]
@@ -115,7 +115,6 @@ animations = [{
 size = Vector2(11, 10)
 
 [node name="GreenBoar" type="Area2D" unique_id=2006956800]
-z_index = 4
 script = ExtResource("1_kmh8y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056173805]

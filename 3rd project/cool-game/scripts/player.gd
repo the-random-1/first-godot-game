@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var inventory_ref: Control = $"../UI/Inventory"
 
@@ -95,7 +96,6 @@ func _ready() -> void:
 	Global.player = self
 	$StunTimer.timeout.connect(stun_timer_timeout)
 	$PracticalVelocityTimer.timeout.connect(update_practical_velocity)
-	$"../Level/Floor".set_cell(Vector2i(60, 42))
 
 func _physics_process(delta: float) -> void:
 	if !stunned:
@@ -131,6 +131,7 @@ func _process(_delta: float) -> void:
 		if inventoryisopen:
 			%UI.reset_inventory_desc()
 		inventory_ref.visible = inventoryisopen
+		print(inventory)
 
 var cycle := 0
 var old_pos := Vector2.ZERO
@@ -155,3 +156,8 @@ func stun(length: float) -> void:
 
 func stun_timer_timeout() -> void:
 	stunned = false
+
+func beartrap(trap_pos: Vector2) -> void:
+	stun(3.5)
+	change_health(-20.0)
+	global_position = trap_pos - Vector2(0, 6)

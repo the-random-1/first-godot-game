@@ -107,7 +107,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_110oy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"chase",
 "speed": 11.0
 }, {
@@ -118,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1lm4n")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 2.5
 }, {
@@ -126,7 +126,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vmyuc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"stunned",
 "speed": 5.0
 }, {
@@ -155,7 +155,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qikgf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 7.0
 }]
@@ -164,7 +164,6 @@ animations = [{
 size = Vector2(10, 12)
 
 [node name="RedGuy" type="Area2D" unique_id=1110242893]
-z_index = 4
 script = ExtResource("1_wm3tl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1150113617]

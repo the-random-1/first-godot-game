@@ -50,7 +50,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_if4hr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"chase",
 "speed": 15.0
 }, {
@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fudnl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 1.0
 }, {
@@ -81,7 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_if4hr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 8.0
 }]
@@ -90,7 +90,6 @@ animations = [{
 size = Vector2(14, 18)
 
 [node name="PumpkinDude" type="Area2D" unique_id=501737277]
-z_index = 4
 script = ExtResource("1_8y856")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=29218812]

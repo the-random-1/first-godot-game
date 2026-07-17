@@ -2,13 +2,15 @@ extends Chest
 
 @export var keyhole_color: String
 var keyhole_hue_code: int
+var keyhole_value_code: float
 var locked := true
 
 func _ready() -> void:
 	keyhole_hue_code = Global._KEY_COLOR_HUES[keyhole_color]
-	$Keyhole/KeyholeRect.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, 0.52)
-	$Keyhole/KeyholeRect2.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, 0.26)
-	$Keyhole/KeyholeRect3.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, 0.26)
+	keyhole_value_code = Global._KEY_COLOR_VALUES[keyhole_color]
+	$Keyhole/KeyholeRect.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, keyhole_value_code)
+	$Keyhole/KeyholeRect2.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, keyhole_value_code / 2)
+	$Keyhole/KeyholeRect3.color = Color.from_hsv(float(keyhole_hue_code) / 360, 1.0, keyhole_value_code / 2)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):

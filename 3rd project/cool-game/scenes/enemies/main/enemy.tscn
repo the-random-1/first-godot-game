@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cticy25x8nfb2"]
+[gd_scene format=3 uid="uid://cticy25x8nfb2"]
 
 [ext_resource type="PackedScene" uid="uid://bb2blt7ieb8ra" path="res://scenes/health_bar.tscn" id="1_pdqnq"]
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" unique_id=226117221]
 z_index = 4
 
-[node name="WanderTimer" type="Timer" parent="."]
+[node name="WanderTimer" type="Timer" parent="." unique_id=289118174]
 wait_time = 3.0
 one_shot = true
 
-[node name="HealthBar" parent="." instance=ExtResource("1_pdqnq")]
+[node name="HealthBar" parent="." unique_id=1079759557 instance=ExtResource("1_pdqnq")]
 scale = Vector2(1, 0.333)

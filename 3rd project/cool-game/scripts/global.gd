@@ -69,7 +69,14 @@ enum _ITEM_TYPES {
 
 const _KEY_COLOR_HUES := {
 	"red": 350,
-	"blue": 192
+	"blue": 192,
+	"lime": 100
+}
+
+const _KEY_COLOR_VALUES := {
+	"red": 0.52,
+	"blue": 0.52,
+	"lime": 0.7
 }
 
 var texture := load("res://assets/0x72_DungeonTilesetII_v1.7.png")

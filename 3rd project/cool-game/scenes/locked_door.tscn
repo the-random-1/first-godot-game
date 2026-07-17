@@ -339,6 +339,7 @@ sources/1 = SubResource("TileSetAtlasSource_8itfo")
 size = Vector2(42, 35)
 
 [node name="LockedDoor" type="Node2D" unique_id=705119288]
+z_index = 4
 script = ExtResource("1_4aulq")
 
 [node name="TileMapLayerClosedDoor" type="TileMapLayer" parent="." unique_id=2074846126]

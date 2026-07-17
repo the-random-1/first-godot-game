@@ -114,12 +114,12 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
 		apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
 		change_health(-area.stats.attack1.damage)
-		print(self)
 
 func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
 
 func _ready() -> void:
+	z_index = 4
 	_enemyinit()
 	area_entered.connect(_on_area_entered)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
