@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dnm501gj0xuyr"]
+
+[ext_resource type="Texture2D" uid="uid://daanf47op4l0h" path="res://assets/my assets/beartrap.png" id="1_2je15"]
+[ext_resource type="Script" uid="uid://dokvgq34srlkf" path="res://scripts/traps/bear_trap.gd" id="1_itaaf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itaaf"]
+atlas = ExtResource("1_2je15")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8md6y"]
+atlas = ExtResource("1_2je15")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvy04"]
+atlas = ExtResource("1_2je15")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77748"]
+atlas = ExtResource("1_2je15")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r500n"]
+atlas = ExtResource("1_2je15")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eyjg4"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_itaaf")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_8md6y")
+}, {
+"duration": 1.25,
+"texture": SubResource("AtlasTexture_wvy04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77748")
+}],
+"loop": 0,
+"name": &"close",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r500n")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77748")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvy04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8md6y")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_itaaf")
+}],
+"loop": 0,
+"name": &"open",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1pqd"]
+size = Vector2(14, 4)
+
+[node name="BearTrap" type="Area2D" unique_id=916361003]
+z_index = 4
+script = ExtResource("1_itaaf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=445753262]
+visible = false
+sprite_frames = SubResource("SpriteFrames_eyjg4")
+animation = &"close"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1725634951]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_o1pqd")
+
+[node name="ResetTimer" type="Timer" parent="." unique_id=1454345993]
+wait_time = 30.0
+one_shot = true

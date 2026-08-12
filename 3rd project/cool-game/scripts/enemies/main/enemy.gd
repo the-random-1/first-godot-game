@@ -17,7 +17,8 @@ enum _STATES {
 	CHASE,
 	ATTACK,
 	STUNNED,
-	JUMP
+	JUMP,
+	PAUSE
 }
 var state := _STATES.IDLE
 func changestate(newstate: _STATES) -> void:
@@ -30,6 +31,7 @@ var max_health: float
 var health := max_health: set = set_health
 var damage: float
 var kb: float
+var take_kb := true
 var wander_time: Vector2
 var m := 1.0
 var rand := randf_range(-1.0, 1.0)
@@ -45,24 +47,36 @@ func change_health(diff: float) -> void:
 # Physics
 var forces := {0: Vector2.ZERO}
 var ignore_movement := false
+var reversemovement := false
+var movementfactor := 1.0
+func reverse_movement(time: float, speedup: float = 0.0) -> void:
+	reversemovement = true
+	movementfactor += speedup
+	await get_tree().create_timer(time).timeout
+	reversemovement = false
+	movementfactor -= speedup
+
 func get_velocity_from_forces() -> Vector2:
 	var sumofforces := Vector2.ZERO
-	var i = 1
-	var j = 0
+	var i: float = 1.0
+	var j: int = 0
+	if reversemovement:
+		i = -1.0
 	if ignore_movement:
 		i = 0
-	for force in forces.values():
+	i *= movementfactor
+	for force: Vector2 in forces.values():
 		if j > 0:
-			i = 1
+			i = 1.0
 		sumofforces += force * i
 		j += 1
 	return sumofforces
 func apply_force(vel: Vector2, time: float, stun_movement: bool) -> void:
 	ignore_movement = stun_movement
 	var indextouse := 0
-	var forcekeylist = forces.keys()
+	var forcekeylist := forces.keys()
 	forcekeylist.sort()
-	for index in forcekeylist:
+	for index: int in forcekeylist:
 		if index != indextouse:
 			break
 		indextouse += 1
@@ -77,9 +91,12 @@ func move_with_velocity(delta: float, clamp_position: bool = true) -> void:
 	else:
 		global_position = (global_position + get_velocity_from_forces() * delta)
 	if (forces[0].x < 0):
-		$AnimatedSprite2D.flip_h = true
+		fliph(true)
 	elif (forces[0].x > 0):
-		$AnimatedSprite2D.flip_h = false
+		fliph(false)
+
+func fliph(face_left: bool) -> void:
+		$AnimatedSprite2D.flip_h = face_left
 
 func die() -> void:
 	queue_free()
@@ -92,7 +109,7 @@ func _on_wander_timer_timeout() -> void:
 		destination.x = randf_range(bounded_area_x1, bounded_area_x2)
 		destination.y = randf_range(bounded_area_y1, bounded_area_y2)
 		if !((favorite_area_x1 <= destination.x && destination.x <= favorite_area_x2) && (favorite_area_y1 <= destination.y && destination.y <= favorite_area_y2)) && favorite_area_chance > 0.0:
-			var P = (favorite_area_x2 - favorite_area_x1) * (favorite_area_y2 - favorite_area_y1)
+			var P := (favorite_area_x2 - favorite_area_x1) * (favorite_area_y2 - favorite_area_y1)
 			if randf() < ((P - favorite_area_chance) / (P - 1)):
 				destination.x = randf_range(favorite_area_x1, favorite_area_x2)
 				destination.y = randf_range(favorite_area_y1, favorite_area_y2)
@@ -110,19 +127,35 @@ func _on_wander_timer_timeout() -> void:
 	$WanderTimer.wait_time = time
 	$WanderTimer.start()
 
+func _on_stun_timer_timeout() -> void:
+	pass
+
 func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
-		apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
+		if take_kb:
+			apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
 		change_health(-area.stats.attack1.damage)
+		var force: float = area.activestats.force
+		if force >= 1.5:
+			var slowfactor: float = (movementfactor - (movementfactor / force)) / m
+			movementfactor -= slowfactor
+			await get_tree().create_timer(force).timeout
+			movementfactor += slowfactor
 
 func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
 
+func stun(time: float = -1.0) -> void:
+	if time != -1.0:
+		$StunTimer.wait_time = max(time, 0.05)
+	changestate(_STATES.STUNNED)
+	$StunTimer.start()
+
 func _ready() -> void:
-	z_index = 4
 	_enemyinit()
 	area_entered.connect(_on_area_entered)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
+	$StunTimer.timeout.connect(_on_stun_timer_timeout)
 	$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y)
 	$WanderTimer.start()
 
@@ -132,11 +165,18 @@ func _enemyinit() -> void:
 func _process(delta: float) -> void:
 	if !isplayerinboundedarea():
 		set_health(max_health)
-		if state == _STATES.CHASE:
-			changestate(_STATES.IDLE)
-			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
-			$WanderTimer.start()
+		chill()
+	if state == _STATES.STUNNED:
+		forces[0] = Vector2.ZERO
+	$AnimatedSprite2D.speed_scale = movementfactor
 	process(delta)
+
+func chill() -> void:
+	if state == _STATES.CHASE:
+		changestate(_STATES.IDLE)
+		forces[0] = Vector2.ZERO
+		$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
+		$WanderTimer.start()
 
 func process(delta: float) -> void:
 	pass
@@ -155,3 +195,10 @@ func increaseMagnitude(val: float) -> float:
 
 func decreaseMagnitude(val: float) -> float:
 	return val ** 2 * sign(val)
+
+func get_rot_from_dir(dir: Vector2) -> float:
+	var vector := dir
+	var angle := asin(vector.x)
+	if vector.y > 0:
+		angle = PI - angle
+	return rad_to_deg(angle)

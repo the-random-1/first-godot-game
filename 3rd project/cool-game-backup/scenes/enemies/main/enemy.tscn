@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cticy25x8nfb2"]
+
+[ext_resource type="Script" uid="uid://clyqij5lpo3be" path="res://scripts/enemies/main/enemy.gd" id="1_j0jha"]
+[ext_resource type="PackedScene" uid="uid://bb2blt7ieb8ra" path="res://scenes/health_bar.tscn" id="1_pdqnq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_emnu5"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0jha"]
+size = Vector2(6, 6)
+
+[node name="Enemy" type="Area2D" unique_id=226117221]
+z_index = 4
+script = ExtResource("1_j0jha")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1568068572]
+sprite_frames = SubResource("SpriteFrames_emnu5")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1458286010]
+shape = SubResource("RectangleShape2D_j0jha")
+
+[node name="HealthBar" parent="." unique_id=1079759557 instance=ExtResource("1_pdqnq")]
+position = Vector2(0, -6)
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=289118174]
+wait_time = 3.0
+one_shot = true

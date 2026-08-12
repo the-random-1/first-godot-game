@@ -3,6 +3,8 @@ class_name Chest
 
 @export var item: Global._ITEM_TYPES
 @export var data: int
+@export var quantity: int = 1
+@export var item_name := ""
 var isplayertouching := false
 var isopen := false
 
@@ -16,7 +18,7 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		isplayertouching = false
 		%UI.hidebottomtext()
 
-func displayhint():
+func displayhint() -> void:
 	%UI.displaybottomtext("Click E to open chest")
 
 func open() -> void:
@@ -24,7 +26,7 @@ func open() -> void:
 	$AnimatedSprite2D.play("open")
 	%UI.hidebottomtext()
 	await get_tree().create_timer(1.0).timeout
-	Global.place_item(item, data, global_position)
+	Global.place_item(item, data, global_position, quantity, item_name)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact") && isplayertouching && !isopen:

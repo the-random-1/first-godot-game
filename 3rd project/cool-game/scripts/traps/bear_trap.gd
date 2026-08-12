@@ -1,8 +1,9 @@
 extends Area2D
 
-var enabled = true
+var enabled := true
 
 func _ready() -> void:
+	$AnimatedSprite2D.visible = false
 	body_entered.connect(tripped)
 	$AnimatedSprite2D.animation_finished.connect(animation_finished)
 	$ResetTimer.timeout.connect(reset)

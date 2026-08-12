@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/KeyWhite.png-0560ac07f7d51e325dcebc4924ae8308
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

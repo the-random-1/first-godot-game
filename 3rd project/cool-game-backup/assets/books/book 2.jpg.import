@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daanf47op4l0h"
-path="res://.godot/imported/beartrap.png-d5103391c8cccf0c1473c79ecc88d14b.ctex"
+uid="uid://dgeb2o0nyi3g4"
+path="res://.godot/imported/book 2.jpg-38796091f37e069b7afd8c0e0822f787.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/beartrap.png"
-dest_files=["res://.godot/imported/beartrap.png-d5103391c8cccf0c1473c79ecc88d14b.ctex"]
+source_file="res://assets/books/book 2.jpg"
+dest_files=["res://.godot/imported/book 2.jpg-38796091f37e069b7afd8c0e0822f787.ctex"]
 
 [params]
 

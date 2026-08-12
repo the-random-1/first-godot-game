@@ -27,7 +27,7 @@ func unlock() -> void:
 	$Keyhole.queue_free()
 	displayhint()
 
-func displayhint():
+func displayhint() -> void:
 	if locked:
 		if %Player.has_item(Global._ITEM_TYPES.CHEST_KEY, keyhole_hue_code):
 			%UI.displaybottomtext("Click E to unlock chest")

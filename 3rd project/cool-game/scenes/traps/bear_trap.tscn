@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dnm501gj0xuyr"]
 
-[ext_resource type="Texture2D" uid="uid://daanf47op4l0h" path="res://assets/beartrap.png" id="1_2je15"]
+[ext_resource type="Texture2D" uid="uid://daanf47op4l0h" path="res://assets/MyAssets/beartrap.png" id="1_2je15"]
 [ext_resource type="Script" uid="uid://dokvgq34srlkf" path="res://scripts/traps/bear_trap.gd" id="1_itaaf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_itaaf"]
@@ -76,11 +76,11 @@ z_index = 4
 script = ExtResource("1_itaaf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=445753262]
-visible = false
 sprite_frames = SubResource("SpriteFrames_eyjg4")
 animation = &"close"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1725634951]
+visible = false
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_o1pqd")
 

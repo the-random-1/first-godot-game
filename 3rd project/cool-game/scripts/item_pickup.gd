@@ -3,6 +3,7 @@ extends Area2D
 @export var item: Global._ITEM_TYPES
 @export var data: int
 @export var quantity := 1
+@export var item_name := ""
 @onready var ui: CanvasLayer = $/root/Main/UI
 var playercanpickup := false
 
@@ -13,6 +14,7 @@ func _ready() -> void:
 		player = %Player
 	
 	$Sprite2D.scale = Vector2.ONE
+	$Sprite2D.region_enabled = false
 	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
 	match item: # code for giving the item pickup its texture
 		Global._ITEM_TYPES.WEAPON:
@@ -22,26 +24,28 @@ func _ready() -> void:
 			$CollisionShape2D.shape.set_size(Vector2(Global.weapon_constants[data].region.w, Global.weapon_constants[data].region.h))
 			if Global.weapon_constants[data].region.h % 2 == 1:
 				$Sprite2D.offset.y = -0.5
+			$AnimatedSprite2D.call_deferred("queue_free")
 		Global._ITEM_TYPES.CHEST_KEY:
 			$Sprite2D.texture = Global.chest_key_texture
 			$Sprite2D.modulate = Color.from_hsv(data as float / 360, 1.0, 0.75)
 			$CollisionShape2D.shape.set_size(Vector2(16, 7))
 			$Sprite2D.scale = 0.85 * Vector2.ONE
+			$AnimatedSprite2D.call_deferred("queue_free")
 		Global._ITEM_TYPES.KEY:
 			$Sprite2D.texture = Global.key_texture
 			$CollisionShape2D.shape.set_size(Vector2(22, 9))
 			$Sprite2D.scale = 1.2 * Vector2.ONE
+			$AnimatedSprite2D.call_deferred("queue_free")
 		Global._ITEM_TYPES.ABILITY_BOOK:
 			$Sprite2D.texture = Global.ability_book_texture
 			$CollisionShape2D.shape.set_size(Vector2(14, 16))
+			$AnimatedSprite2D.call_deferred("queue_free")
 		Global._ITEM_TYPES.ABILITY_PAGE:
-			$Sprite2D.scale = 0.1 * Vector2.ONE
-			$Sprite2D.region_enabled = true
-			$Sprite2D.region_rect = Rect2(300, 510, 200, 120)
-			$Sprite2D.rotation_degrees = 90
-			$Sprite2D.texture = Global.ability_page_texture
+			$AnimatedSprite2D.play("abillitypage")
+			$Sprite2D.visible = false
+			$Sprite2D.call_deferred("queue_free")
 		Global._ITEM_TYPES.NOTHING:
-			queue_free()
+			call_deferred("queue_free")
 		_:
 			pass
 	visible = true
@@ -59,17 +63,20 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body is Player:
 		playercanpickup = true
 		
-		if item == Global._ITEM_TYPES.WEAPON:
-			ui.switchequiptextvisibility(true, true)
-			Global.selectedweapontype = data as Global._WEAPON_TYPES
+		if !body.inventoryisfull:
+			if item == Global._ITEM_TYPES.WEAPON:
+				ui.switchequiptextvisibility(true, true)
+				Global.selectedweapontype = data as Global._WEAPON_TYPES
+			else:
+				ui.displaybottomtext("Click E to pick up " + item_name)
 		else:
-			ui.displaybottomtext("Click E to pick up")
+			ui.displaybottomtext("Inventory is full!")
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
+	if body is Player:
 		playercanpickup = false
 		
 		if item == Global._ITEM_TYPES.WEAPON:

@@ -1,6 +1,7 @@
 extends Door
 
 @export var keyhole_code := 0
+@export var door_name := "The door"
 var locked := true
 
 func doorinteract() -> void:
@@ -21,7 +22,7 @@ func displayhint() -> void:
 		if %Player.has_item(Global._ITEM_TYPES.KEY, keyhole_code):
 			%UI.displaybottomtext("Click E to unlock door")
 		else:
-			%UI.displaybottomtext("Door is locked")
+			%UI.displaybottomtext(door_name + " is locked")
 	else:
 		if isopen:
 			%UI.displaybottomtext("Click E to close door")

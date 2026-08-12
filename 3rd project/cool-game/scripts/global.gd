@@ -83,7 +83,7 @@ var texture := load("res://assets/0x72_DungeonTilesetII_v1.7.png")
 var key_texture := load("res://assets/KeysPack/KeyGold.png")
 var chest_key_texture := load("res://assets/KeysPack/KeyWhite.png")
 var ability_book_texture := load("res://assets/books/book/16_5.png")
-var ability_page_texture := load("res://assets/books/pages/Notes.png")
+
 
 var canpickupweapon := false
 var selectedweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
@@ -91,12 +91,13 @@ var currweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
 
 var player: CharacterBody2D
 
-func place_item(item: _ITEM_TYPES, data: int, pos: Vector2, quantity: int = 1) -> void:
+func place_item(item: _ITEM_TYPES, data: int, pos: Vector2, quantity: int = 1, item_name: String = "") -> void:
 	var itempickupscene: PackedScene = load("res://scenes/item_pickup.tscn")
 	var newitem := itempickupscene.instantiate()
 	newitem.item = item
 	newitem.data = data
+	newitem.quantity = quantity
+	newitem.item_name = item_name
 	newitem.global_position = pos
 	newitem.player = player
-	newitem.quantity = quantity
-	$/root/Main/ItemPickups.add_child(newitem)
+	$/root/Main/Level/Items/ItemPickups.add_child(newitem)

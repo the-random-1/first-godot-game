@@ -3,7 +3,7 @@ class_name Slime
 
 var wasinchase := false
 var jumpattackdamage := 40.0
-var jumpspeed := 200.0
+var jumpspeed := 250.0
 var jumpheightmultiplier := 1.35
 var jumpminradius := 16.0
 var jumpmaxradius := 300.0
@@ -36,22 +36,20 @@ func _enemyinit() -> void:
 	health = max_health
 	damage = 20.0
 	kb = 1
+	take_kb = false
 	wander_time = Vector2(0.75, 2.0)
-	m = 2.5
+	m = 10.0
 	rand = increaseMagnitude(rand)
 	
 	slimehit.connect(%Player._slimehit)
 	slimejumphit.connect(%Player._slimejumphit)
 	body_entered.connect(_on_body_entered)
-	$StunTimer.timeout.connect(_on_stun_timer_timeout)
 	$WaitForJumpTimer.timeout.connect(_attempt_jump)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		if state == _STATES.CHASE:
-			changestate(_STATES.STUNNED)
-			$StunTimer.wait_time = 0.9 + rand * 0.5
-			$StunTimer.start()
+			stun(0.9 + rand * 0.5)
 			$WaitForJumpTimer.stop()
 			slimehit.emit(damage, stuntime * 0.7)
 			applyforcetoplayer(0.25)
@@ -79,8 +77,8 @@ func _attempt_jump() -> void:
 		var a := jumpheightmultiplier / absf(x1 - x2)
 		var b := (y1 - y2 - a * (x1 ** 2 - x2 ** 2)) / (x1 - x2)
 		
-		var tween = get_tree().create_tween()
-		tween.tween_method(calculateTrajectory.bind(a, b, signf(x2 - x1)), x1, x2, Global.calculate_integral(minf(x1, x2), maxf(x1, x2), func(e): return sqrt((2 * a * e + b) ** 2 + 1)) / jumpspeed)
+		var tween := get_tree().create_tween()
+		tween.tween_method(calculateTrajectory.bind(a, b, signf(x2 - x1)), x1, x2, Global.calculate_integral(minf(x1, x2), maxf(x1, x2), func(e: float) -> float: return sqrt((2 * a * e + b) ** 2 + 1)) / (jumpspeed * movementfactor))
 		tween.tween_callback(landjump)
 	else:
 		$WaitForJumpTimer.wait_time = 1.15 + randf_range(-0.35, 0.1) + rand * 0.5

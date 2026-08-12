@@ -12,6 +12,8 @@ func changestate(newstate: _STATES) -> void:
 			$AnimatedSprite2D.play("chase")
 		_STATES.ATTACK:
 			$AnimatedSprite2D.play("idle")
+		_STATES.STUNNED:
+			$AnimatedSprite2D.play("stunned")
 
 var wasinchase := false
 
@@ -35,23 +37,25 @@ func _on_body_entered(body: Node2D) -> void:
 		$AttackDelay.start()
 		forces[0] = Vector2.ZERO
 
-func _on_attack_delay_timeout():
+func _on_attack_delay_timeout() -> void:
+	var ishouldchangemystate := true
 	if global_position.distance_to(%Player.global_position) <= 16:
 		redguyhit.emit(damage)
 	for body in get_overlapping_bodies():
-		if body.name == "Player":
+		if body is Player:
 			changestate(_STATES.ATTACK)
 			$AttackDelay.start()
 			forces[0] = Vector2.ZERO
-			return true
-	changestate(_STATES.IDLE)
+			ishouldchangemystate = false
+	if ishouldchangemystate:
+		changestate(_STATES.IDLE)
 
 func die() -> void:
 	queue_free()
 
 func process(delta: float) -> void:
 	move_with_velocity(delta)
-	if %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2:
+	if isplayerinboundedarea():
 		if !(state == _STATES.CHASE || state == _STATES.ATTACK):
 			changestate(_STATES.CHASE)
 			wasinchase = true

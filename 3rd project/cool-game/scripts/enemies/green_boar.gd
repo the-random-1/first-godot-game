@@ -28,15 +28,12 @@ func _enemyinit() -> void:
 
 	greenboarhit.connect(%Player._greenboarhit)
 	body_entered.connect(_on_body_entered)
-	$StunTimer.timeout.connect(_on_stun_timer_timeout)
 
-func _on_body_entered(bodyc: Node2D) -> void:
-	if bodyc.name == "Player" && state == _STATES.CHASE:
-		changestate(_STATES.STUNNED)
-		$StunTimer.start()
+func _on_body_entered(body: Node2D) -> void:
+	if body.name == "Player" && state == _STATES.CHASE:
+		stun()
 		greenboarhit.emit(damage)
 		applyforcetoplayer(0.25)
-		forces[0] = Vector2.ZERO
 
 func _on_stun_timer_timeout() -> void:
 	changestate(_STATES.IDLE)

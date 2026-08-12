@@ -1,0 +1,167 @@
+extends Area2D
+class_name Enemy
+
+var bounded_area_x1: float
+var bounded_area_y1: float
+var bounded_area_x2: float
+var bounded_area_y2: float
+@export var favorite_area_x1 := 0.0
+@export var favorite_area_y1 := 0.0
+@export var favorite_area_x2 := 1.0
+@export var favorite_area_y2 := 1.0
+@export var favorite_area_chance := 0.0
+
+enum _STATES {
+	IDLE,
+	WALK,
+	CHASE,
+	ATTACK,
+	STUNNED,
+	JUMP
+}
+var state := _STATES.IDLE
+func changestate(newstate: _STATES) -> void:
+	state = newstate
+
+var destination: Vector2
+
+var speed: float
+var max_health: float
+var health := max_health: set = set_health
+var damage: float
+var kb: float
+var wander_time: Vector2
+var m := 1.0
+var rand := randf_range(-1.0, 1.0)
+
+func set_health(newhealth: float) -> void:
+	if newhealth <= 0.0:
+		die()
+	health = max(newhealth, 0.0)
+	$HealthBar.set_healthbar(newhealth / max_health)
+func change_health(diff: float) -> void:
+	set_health(health + diff)
+
+# Physics
+var forces := {0: Vector2.ZERO}
+var ignore_movement := false
+func get_velocity_from_forces() -> Vector2:
+	var sumofforces := Vector2.ZERO
+	var i = 1
+	var j = 0
+	if ignore_movement:
+		i = 0
+	for force in forces.values():
+		if j > 0:
+			i = 1
+		sumofforces += force * i
+		j += 1
+	return sumofforces
+func apply_force(vel: Vector2, time: float, stun_movement: bool) -> void:
+	ignore_movement = stun_movement
+	var indextouse := 0
+	var forcekeylist = forces.keys()
+	forcekeylist.sort()
+	for index in forcekeylist:
+		if index != indextouse:
+			break
+		indextouse += 1
+	forces[indextouse] = vel
+	await get_tree().create_timer(time).timeout
+	if stun_movement:
+		ignore_movement = false
+	forces.erase(indextouse)
+func move_with_velocity(delta: float, clamp_position: bool = true) -> void:
+	if clamp_position:
+		global_position = (global_position + get_velocity_from_forces() * delta).clamp(Vector2(bounded_area_x1, bounded_area_y1), Vector2(bounded_area_x2, bounded_area_y2))
+	else:
+		global_position = (global_position + get_velocity_from_forces() * delta)
+	if (forces[0].x < 0):
+		fliph(true)
+	elif (forces[0].x > 0):
+		fliph(false)
+
+func fliph(face_left: bool) -> void:
+		$AnimatedSprite2D.flip_h = face_left
+
+func die() -> void:
+	queue_free()
+
+func _on_wander_timer_timeout() -> void:
+	var time := randf_range(wander_time.x, wander_time.y)
+	var newstate: _STATES = state
+	
+	if (state == _STATES.IDLE):
+		destination.x = randf_range(bounded_area_x1, bounded_area_x2)
+		destination.y = randf_range(bounded_area_y1, bounded_area_y2)
+		if !((favorite_area_x1 <= destination.x && destination.x <= favorite_area_x2) && (favorite_area_y1 <= destination.y && destination.y <= favorite_area_y2)) && favorite_area_chance > 0.0:
+			var P = (favorite_area_x2 - favorite_area_x1) * (favorite_area_y2 - favorite_area_y1)
+			if randf() < ((P - favorite_area_chance) / (P - 1)):
+				destination.x = randf_range(favorite_area_x1, favorite_area_x2)
+				destination.y = randf_range(favorite_area_y1, favorite_area_y2)
+		
+		time = global_position.distance_to(destination) / randf_range(.375 * speed, .875 * speed)
+		forces[0] = (destination - global_position) / time
+		newstate = _STATES.WALK
+	
+	if (state == _STATES.WALK):
+		forces[0] = Vector2.ZERO
+		newstate = _STATES.IDLE
+	
+	if state == _STATES.WALK || state == _STATES.IDLE:
+		changestate(newstate)
+	$WanderTimer.wait_time = time
+	$WanderTimer.start()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area is Weapon:
+		apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
+		change_health(-area.stats.attack1.damage)
+
+func applyforcetoplayer(time: float) -> void:
+	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
+
+func _ready() -> void:
+	z_index = 4
+	_enemyinit()
+	area_entered.connect(_on_area_entered)
+	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
+	$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y)
+	$WanderTimer.start()
+
+func _enemyinit() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	if !isplayerinboundedarea():
+		set_health(max_health)
+		if state == _STATES.CHASE:
+			changestate(_STATES.IDLE)
+			$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
+			$WanderTimer.start()
+	process(delta)
+
+func process(delta: float) -> void:
+	pass
+
+func isplayerinboundedarea() -> bool:
+	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2
+
+func adjustChaseDestination(origDest: Vector2, variance: int, cutoffdistance: float = 24.0) -> Vector2:
+	if global_position.distance_to(origDest) > cutoffdistance:
+		return origDest + Vector2(%Player.forces[0].y, %Player.forces[0].x) * variance * rand
+	else:
+		return origDest
+
+func increaseMagnitude(val: float) -> float:
+	return sqrt(abs(val)) * sign(val)
+
+func decreaseMagnitude(val: float) -> float:
+	return val ** 2 * sign(val)
+
+func get_rot_from_dir(dir: Vector2) -> float:
+	var vector = dir
+	var angle = asin(vector.x)
+	if vector.y > 0:
+		angle = PI - angle
+	return rad_to_deg(angle)

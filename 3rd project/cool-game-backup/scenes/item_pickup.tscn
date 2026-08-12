@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cy7p41vjqcejb"]
+
+[ext_resource type="Script" uid="uid://ct62pybpfggo3" path="res://scripts/item_pickup.gd" id="1_x68q3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgqak"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lgqak"]
+font_size = 3
+
+[node name="ItemPickup" type="Area2D" unique_id=1320014984]
+z_index = 3
+script = ExtResource("1_x68q3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1461097288]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=255654188]
+shape = SubResource("RectangleShape2D_lgqak")
+
+[node name="Count" type="Label" parent="." unique_id=197249142]
+visible = false
+anchors_preset = -1
+grow_horizontal = 2
+grow_vertical = 2
+text = "x1"
+label_settings = SubResource("LabelSettings_lgqak")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
