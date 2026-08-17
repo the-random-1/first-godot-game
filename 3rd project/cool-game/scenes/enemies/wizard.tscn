@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://db6ggqq7iamr0"]
+
+[ext_resource type="PackedScene" uid="uid://cticy25x8nfb2" path="res://scenes/enemies/main/enemy.tscn" id="1_fvtiq"]
+[ext_resource type="Script" uid="uid://pbkq3dd3bkh3" path="res://scripts/enemies/wizard.gd" id="2_a20xi"]
+[ext_resource type="Texture2D" uid="uid://ceqru8ufnhc14" path="res://assets/0x72_DungeonTilesetII_v1.7.png" id="3_2q1tw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_006rn"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(367, 231, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jalls"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(399, 231, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x8xv"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(367, 231, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56fxn"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(383, 231, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8vco"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(399, 231, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eocm"]
+atlas = ExtResource("3_2q1tw")
+region = Rect2(415, 231, 16, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3x5v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_006rn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jalls")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x8xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56fxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8vco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eocm")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o07n3"]
+size = Vector2(11, 13)
+
+[node name="Wizard" unique_id=226117221 instance=ExtResource("1_fvtiq")]
+script = ExtResource("2_a20xi")
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1568068572]
+sprite_frames = SubResource("SpriteFrames_j3x5v")
+animation = &"walk"
+frame_progress = 0.48276648
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1458286010]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_o07n3")
+
+[node name="HealthBar" parent="." index="2" unique_id=1079759557]
+position = Vector2(0, -9)

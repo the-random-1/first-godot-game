@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bh64arupkehts"]
 
+[ext_resource type="Script" uid="uid://dhqh4641ai1fs" path="res://scripts/barrier.gd" id="1_8ilpk"]
 [ext_resource type="Texture2D" uid="uid://dur421rjo0ww0" path="res://assets/atlas_walls_high-16x32.png" id="1_qfl2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8och"]
@@ -7,6 +8,7 @@ size = Vector2(12, 31)
 
 [node name="Barrier" type="StaticBody2D" unique_id=944196489]
 z_index = 3
+script = ExtResource("1_8ilpk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1804125956]
 position = Vector2(0, -17.5)
