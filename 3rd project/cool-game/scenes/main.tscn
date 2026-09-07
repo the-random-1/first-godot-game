@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://deecafrfex2mb" path="res://scenes/enemies/slime.tscn" id="13_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://rn1kkjnbjau8" path="res://scenes/enemies/death_knight.tscn" id="16_0ld40"]
 [ext_resource type="PackedScene" uid="uid://db6ggqq7iamr0" path="res://scenes/enemies/wizard.tscn" id="21_jscy8"]
-[ext_resource type="PackedScene" uid="uid://criaigwyygkcc" path="res://scenes/projectiles/fireball.tscn" id="22_pm3ni"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1tni"]
 texture = ExtResource("1_30xfn")
@@ -438,6 +437,9 @@ item_name = "Ability Page"
 position = Vector2(1280, 1200)
 item = 5
 item_name = "Ability Page"
+
+[node name="Chest" parent="Level/Items/Chests" unique_id=193398959 instance=ExtResource("10_6et61")]
+position = Vector2(1656, 758)
 
 [node name="WeaponLockedChest" parent="Level/Items/Chests" unique_id=1270204603 instance=ExtResource("7_4cxrf")]
 position = Vector2(-217, 432)
@@ -875,6 +877,9 @@ offset_top = 1199.0
 offset_right = 1077.0
 offset_bottom = 1315.0
 
+[node name="Wizard" parent="Level/Enemies/EnemyBoundedArea14" unique_id=761135864 instance=ExtResource("21_jscy8")]
+position = Vector2(31, 83)
+
 [node name="EnemyBoundedArea15" parent="Level/Enemies" unique_id=251203152 instance=ExtResource("6_mxtan")]
 offset_left = 843.0
 offset_top = 1391.0
@@ -896,10 +901,22 @@ offset_top = -225.0
 offset_right = 1397.0
 offset_bottom = -61.0
 
+[node name="EnemyBoundedArea18" parent="Level/Enemies" unique_id=395110564 instance=ExtResource("6_mxtan")]
+offset_left = 1435.0
+offset_top = 463.0
+offset_right = 1621.0
+offset_bottom = 611.0
+
+[node name="EnemyBoundedArea19" parent="Level/Enemies" unique_id=423798987 instance=ExtResource("6_mxtan")]
+offset_left = 1499.0
+offset_top = 879.0
+offset_right = 1669.0
+offset_bottom = 1027.0
+
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(962, 1275)
+position = Vector2(896, 1145)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -908,7 +925,7 @@ zoom = Vector2(5, 5)
 position_smoothing_speed = 12.0
 
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
-position = Vector2(282, 549)
+position = Vector2(903, 1147)
 item = 1
 data = 1
 
@@ -951,12 +968,3 @@ offset_top = 167.0
 offset_right = 1276.0
 offset_bottom = 189.33337
 text = "new gimmick here"
-
-[node name="Chest" parent="." unique_id=193398959 instance=ExtResource("10_6et61")]
-position = Vector2(1656, 758)
-
-[node name="Wizard" parent="." unique_id=761135864 instance=ExtResource("21_jscy8")]
-position = Vector2(890, 1282)
-
-[node name="Fireball" parent="." unique_id=540570029 instance=ExtResource("22_pm3ni")]
-position = Vector2(915, 1281)
