@@ -959,4 +959,4 @@ position = Vector2(1656, 758)
 position = Vector2(890, 1282)
 
 [node name="Fireball" parent="." unique_id=540570029 instance=ExtResource("22_pm3ni")]
-position = Vector2(911, 1284)
+position = Vector2(915, 1281)
