@@ -18,7 +18,8 @@ enum _STATES {
 	ATTACK,
 	STUNNED,
 	JUMP,
-	PAUSE
+	PAUSE,
+	REPOSITION
 }
 var state := _STATES.IDLE
 func changestate(newstate: _STATES) -> void:
