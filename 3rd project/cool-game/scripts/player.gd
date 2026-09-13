@@ -11,7 +11,7 @@ enum _STATES {
 
 signal space
 
-var SPEED := 5000
+var SPEED := 6000
 var state := _STATES.IDLE
 var weapon_state: Weapon._STATES
 var health := 100.0: set = set_health
@@ -109,6 +109,8 @@ func _slimejumphit(dmg: float, stuntime: float) -> void:
 	stun(stuntime)
 func _deathknighthit(dmg: float) -> void:
 	change_health(-dmg)
+func _fireballhit(dmg: float) -> void:
+	change_health(-dmg)
 
 func _ready() -> void:
 	Global.player = self
@@ -121,7 +123,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if !stunned:
-		forces[0] = round(Input.get_vector("move_left", "move_right", "move_up", "move_down"))
+		forces[0] = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = SPEED * delta * get_velocity_from_forces()
 	move_and_slide()
 	

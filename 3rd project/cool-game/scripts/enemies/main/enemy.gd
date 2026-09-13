@@ -203,3 +203,6 @@ func get_rot_from_dir(dir: Vector2) -> float:
 	if vector.y > 0:
 		angle = PI - angle
 	return rad_to_deg(angle)
+
+func rand_point_in_area() -> Vector2:
+	return Vector2(randf_range(bounded_area_x1, bounded_area_x2), randf_range(bounded_area_y1, bounded_area_y2))

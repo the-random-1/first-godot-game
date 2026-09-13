@@ -18,7 +18,7 @@ func changestate(newstate: _STATES) -> void:
 			$AnimatedSprite2D.play("run")
 
 func _enemyinit() -> void:
-	speed = 90.0
+	speed = 125.0
 	max_health = 50.0
 	health = max_health
 	damage = 25.0
@@ -47,28 +47,58 @@ func process(delta: float) -> void:
 			$RepositionTimer.start()
 			changestate(_STATES.ATTACK)
 			fireball()
+	if state == _STATES.ATTACK:
+		destination = global_position.clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+		if destination.distance_to(global_position) > 1:
+			forces[0] = speed / 2 * global_position.direction_to(destination)
+		else:
+			forces[0] = Vector2.ZERO
 
 func fireball() -> void:
 	if $AttackTimer.time_left == 0 && state == _STATES.ATTACK:
 		$AttackTimer.start()
 		var new_fireball := Global.fireball.instantiate()
+		new_fireball.sender = "wizard"
+		new_fireball.damage = damage
+		new_fireball.speed = 180.0
+		new_fireball.direction = global_position.direction_to(%Player.global_position)
+		new_fireball.player = %Player
 		if global_position.x < %Player.global_position.x:
 			fliph(false)
-			new_fireball.global_position = global_position + Vector2(8, 0)
+			new_fireball.global_position = global_position + Vector2(10, 0)
 		else:
 			fliph(true)
-			new_fireball.global_position = global_position + Vector2(-8, 0)
+			new_fireball.global_position = global_position + Vector2(-10, 0)
 		projectiles.add_child(new_fireball)
-		print("attack!!!")
 
 func on_attack_timer_timeout() -> void:
 	fireball()
 
 func isinreposarea(pos: Vector2) -> bool:
-	return %Player.global_position.distance_to(pos) < min(bounded_area_x2 - bounded_area_x1, bounded_area_y2 - bounded_area_y1) / 2
+	return %Player.global_position.distance_to(pos) < min(min(bounded_area_x2 - bounded_area_x1, bounded_area_y2 - bounded_area_y1) / 2, 64)
 
 func repos_destination() -> Vector2:
-	var new_dest := Vector2(randf_range(bounded_area_x1, bounded_area_x2), randf_range(bounded_area_y1, bounded_area_y2))
-	while isinreposarea(new_dest):
-		new_dest = Vector2(randf_range(bounded_area_x1, bounded_area_x2), randf_range(bounded_area_y1, bounded_area_y2))
+	var dir_to_player := global_position.direction_to(%Player.global_position)
+	
+	var new_dest: Vector2 = (global_position - dir_to_player * 64).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+	if !((new_dest.x == bounded_area_x1 + 8 || new_dest.x == bounded_area_x2 - 8) && (new_dest.y == bounded_area_y1 + 8 || new_dest.y == bounded_area_y2 - 8)) && !isinreposarea(new_dest) && global_position.distance_to(new_dest) > 24:
+		return new_dest
+	
+	new_dest = (global_position - dir_to_player * 32).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+	if !((new_dest.x == bounded_area_x1 + 8 || new_dest.x == bounded_area_x2 - 8) && (new_dest.y == bounded_area_y1 + 8 || new_dest.y == bounded_area_y2 - 8)) && !isinreposarea(new_dest) && global_position.distance_to(new_dest) > 24:
+		return new_dest
+	
+	new_dest = rand_point_in_area()
+	var tries := 0
+	var besttry := 1.0
+	while dir_to_player.dot(global_position.direction_to(new_dest)) > 0.5 && tries < 15:
+		var test_dest := rand_point_in_area().clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+		while isinreposarea(test_dest):
+			test_dest = rand_point_in_area().clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+		var newtry := dir_to_player.dot(global_position.direction_to(test_dest))
+		if newtry < besttry:
+			new_dest = test_dest
+			besttry = newtry
+		
+		tries += 1
 	return new_dest

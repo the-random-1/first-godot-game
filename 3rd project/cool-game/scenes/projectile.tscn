@@ -4,9 +4,17 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6aapk"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8fcr"]
+size = Vector2(4, 4)
+
 [node name="Projectile" type="Area2D" unique_id=540570029]
 z_index = 1
 script = ExtResource("1_c8fcr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=835822813]
 shape = SubResource("RectangleShape2D_6aapk")
+
+[node name="WallHitBox" type="Area2D" parent="." unique_id=166630527]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHitBox" unique_id=1651502862]
+shape = SubResource("RectangleShape2D_c8fcr")

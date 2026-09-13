@@ -108,8 +108,9 @@ shape = SubResource("RectangleShape2D_o07n3")
 position = Vector2(0, -9)
 
 [node name="RepositionTimer" type="Timer" parent="." index="5" unique_id=1236514737]
-wait_time = 1.5
+wait_time = 0.75
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="." index="6" unique_id=1950489982]
+wait_time = 1.0999999999999999
 one_shot = true

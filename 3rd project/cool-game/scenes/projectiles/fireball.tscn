@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://criaigwyygkcc"]
 
 [ext_resource type="PackedScene" uid="uid://blehhhdkliksj" path="res://scenes/projectile.tscn" id="1_t07v1"]
+[ext_resource type="Script" uid="uid://di6nikxtujcbf" path="res://scenes/projectiles/fireball.gd" id="2_qphfj"]
 [ext_resource type="Texture2D" uid="uid://dufufb82w4ej8" path="res://assets/MyAssets/fireball.png" id="2_s73vv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qphfj"]
@@ -50,6 +51,7 @@ animations = [{
 size = Vector2(16, 16)
 
 [node name="Fireball" unique_id=540570029 instance=ExtResource("1_t07v1")]
+script = ExtResource("2_qphfj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=691514831]
 sprite_frames = SubResource("SpriteFrames_kkddm")
