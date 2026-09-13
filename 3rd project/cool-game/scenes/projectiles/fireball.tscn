@@ -54,7 +54,7 @@ size = Vector2(16, 16)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=691514831]
 sprite_frames = SubResource("SpriteFrames_kkddm")
 autoplay = "default"
-frame_progress = 0.5953449
+frame_progress = 0.5282975
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=835822813]
 visible = false

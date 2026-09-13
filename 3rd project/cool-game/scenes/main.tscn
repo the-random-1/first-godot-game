@@ -913,6 +913,8 @@ offset_top = 879.0
 offset_right = 1669.0
 offset_bottom = 1027.0
 
+[node name="Projectiles" type="Node" parent="." unique_id=315001650]
+
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5

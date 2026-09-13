@@ -97,7 +97,7 @@ func move_with_velocity(delta: float, clamp_position: bool = true) -> void:
 		fliph(false)
 
 func fliph(face_left: bool) -> void:
-		$AnimatedSprite2D.flip_h = face_left
+	$AnimatedSprite2D.flip_h = face_left
 
 func die() -> void:
 	queue_free()

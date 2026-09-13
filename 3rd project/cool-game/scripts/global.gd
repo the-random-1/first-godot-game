@@ -84,6 +84,7 @@ var key_texture := load("res://assets/KeysPack/KeyGold.png")
 var chest_key_texture := load("res://assets/KeysPack/KeyWhite.png")
 var ability_book_texture := load("res://assets/books/book/16_5.png")
 
+var fireball := preload("res://scenes/projectiles/fireball.tscn")
 
 var canpickupweapon := false
 var selectedweapontype: _WEAPON_TYPES = _WEAPON_TYPES.NA
