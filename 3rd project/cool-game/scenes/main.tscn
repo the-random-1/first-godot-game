@@ -895,6 +895,15 @@ offset_top = 15.0
 offset_right = 853.0
 offset_bottom = 147.0
 
+[node name="Wizard" parent="Level/Enemies/EnemyBoundedArea16" unique_id=1115105170 instance=ExtResource("21_jscy8")]
+position = Vector2(83, 70)
+
+[node name="GreenBoar" parent="Level/Enemies/EnemyBoundedArea16" unique_id=1824400036 instance=ExtResource("8_mnnmc")]
+position = Vector2(35, 103)
+
+[node name="GreenBoar2" parent="Level/Enemies/EnemyBoundedArea16" unique_id=540318690 instance=ExtResource("8_mnnmc")]
+position = Vector2(130, 31)
+
 [node name="EnemyBoundedArea17" parent="Level/Enemies" unique_id=655959804 instance=ExtResource("6_mxtan")]
 offset_left = 1147.0
 offset_top = -225.0
@@ -918,7 +927,7 @@ offset_bottom = 1027.0
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(894, 1145)
+position = Vector2(855, 168)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -927,8 +936,9 @@ zoom = Vector2(5, 5)
 position_smoothing_speed = 12.0
 
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
-position = Vector2(895, 1148)
+position = Vector2(855, 177)
 item = 1
+data = 1
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1143731426]
 unique_name_in_owner = true
