@@ -18,7 +18,7 @@ func changestate(newstate: _STATES) -> void:
 			$AnimatedSprite2D.play("run")
 
 func _enemyinit() -> void:
-	speed = 125.0
+	speed = 120.0
 	max_health = 50.0
 	health = max_health
 	damage = 25.0
@@ -45,6 +45,8 @@ func process(delta: float) -> void:
 		forces[0] = speed * global_position.direction_to(destination)
 		if global_position.distance_to(destination) < 5:
 			$RepositionTimer.start()
+			$AttackTimer.wait_time = 0.65
+			$AttackTimer.start()
 			changestate(_STATES.ATTACK)
 			fireball()
 	if state == _STATES.ATTACK:
@@ -72,6 +74,8 @@ func fireball() -> void:
 		projectiles.add_child(new_fireball)
 
 func on_attack_timer_timeout() -> void:
+	if $AttackTimer.wait_time != 1.0:
+		$AttackTimer.wait_time = 1.0
 	fireball()
 
 func isinreposarea(pos: Vector2) -> bool:
@@ -80,11 +84,11 @@ func isinreposarea(pos: Vector2) -> bool:
 func repos_destination() -> Vector2:
 	var dir_to_player := global_position.direction_to(%Player.global_position)
 	
-	var new_dest: Vector2 = (global_position - dir_to_player * 64).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+	var new_dest: Vector2 = (global_position - dir_to_player * randf_range(56.0, 72.0)).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
 	if !((new_dest.x == bounded_area_x1 + 8 || new_dest.x == bounded_area_x2 - 8) && (new_dest.y == bounded_area_y1 + 8 || new_dest.y == bounded_area_y2 - 8)) && !isinreposarea(new_dest) && global_position.distance_to(new_dest) > 24:
 		return new_dest
 	
-	new_dest = (global_position - dir_to_player * 32).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
+	new_dest = (global_position - dir_to_player * randf_range(24.0, 40.0)).clamp(Vector2(bounded_area_x1 + 8, bounded_area_y1 + 8), Vector2(bounded_area_x2 - 8, bounded_area_y2 - 8))
 	if !((new_dest.x == bounded_area_x1 + 8 || new_dest.x == bounded_area_x2 - 8) && (new_dest.y == bounded_area_y1 + 8 || new_dest.y == bounded_area_y2 - 8)) && !isinreposarea(new_dest) && global_position.distance_to(new_dest) > 24:
 		return new_dest
 	

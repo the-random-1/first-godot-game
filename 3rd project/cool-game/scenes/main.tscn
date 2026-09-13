@@ -929,7 +929,6 @@ position_smoothing_speed = 12.0
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
 position = Vector2(895, 1148)
 item = 1
-data = 2
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1143731426]
 unique_name_in_owner = true

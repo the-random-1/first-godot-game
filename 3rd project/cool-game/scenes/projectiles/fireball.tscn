@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://criaigwyygkcc"]
 
 [ext_resource type="PackedScene" uid="uid://blehhhdkliksj" path="res://scenes/projectile.tscn" id="1_t07v1"]
-[ext_resource type="Script" uid="uid://di6nikxtujcbf" path="res://scenes/projectiles/fireball.gd" id="2_qphfj"]
+[ext_resource type="Script" uid="uid://di6nikxtujcbf" path="res://scripts/projectiles/fireball.gd" id="2_qphfj"]
 [ext_resource type="Texture2D" uid="uid://dufufb82w4ej8" path="res://assets/MyAssets/fireball.png" id="2_s73vv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qphfj"]
@@ -48,7 +48,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcyka"]
-size = Vector2(16, 16)
+size = Vector2(10, 10)
 
 [node name="Fireball" unique_id=540570029 instance=ExtResource("1_t07v1")]
 script = ExtResource("2_qphfj")
@@ -61,3 +61,6 @@ frame_progress = 0.5282975
 [node name="CollisionShape2D" parent="." index="1" unique_id=835822813]
 visible = false
 shape = SubResource("RectangleShape2D_fcyka")
+
+[node name="WallHitBox" parent="." index="2" unique_id=166630527]
+visible = false
