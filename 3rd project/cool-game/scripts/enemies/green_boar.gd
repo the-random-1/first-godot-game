@@ -35,9 +35,6 @@ func _on_body_entered(body: Node2D) -> void:
 		greenboarhit.emit(damage)
 		applyforcetoplayer(0.25)
 
-func _on_stun_timer_timeout() -> void:
-	changestate(_STATES.IDLE)
-
 func process(delta: float) -> void:
 	move_with_velocity(delta)
 	if %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2:

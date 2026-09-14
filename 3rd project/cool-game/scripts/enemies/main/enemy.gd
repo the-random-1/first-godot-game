@@ -129,7 +129,7 @@ func _on_wander_timer_timeout() -> void:
 	$WanderTimer.start()
 
 func _on_stun_timer_timeout() -> void:
-	pass
+	changestate(_STATES.IDLE)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
@@ -169,8 +169,9 @@ func _process(delta: float) -> void:
 		chill()
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
-	$AnimatedSprite2D.speed_scale = movementfactor
-	process(delta)
+	else:
+		$AnimatedSprite2D.speed_scale = movementfactor
+		process(delta)
 
 func chill() -> void:
 	if state == _STATES.CHASE:

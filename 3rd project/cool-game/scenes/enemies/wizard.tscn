@@ -88,7 +88,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o07n3"]
-size = Vector2(11, 13)
+size = Vector2(11.5, 17)
 
 [node name="Wizard" unique_id=226117221 instance=ExtResource("1_fvtiq")]
 script = ExtResource("2_a20xi")
@@ -101,7 +101,6 @@ frame_progress = 0.6408168
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1458286010]
 visible = false
-position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_o07n3")
 
 [node name="HealthBar" parent="." index="2" unique_id=1079759557]
@@ -112,5 +111,5 @@ wait_time = 0.75
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="." index="6" unique_id=1950489982]
-wait_time = 1.0999999999999999
+wait_time = 1.1
 one_shot = true
