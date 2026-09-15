@@ -96,7 +96,7 @@ size = Vector2(8, 15)
 sprite_frames = SubResource("SpriteFrames_rrs68")
 animation = &"chase"
 autoplay = "idle"
-frame_progress = 0.6791072
+frame_progress = 0.43744335
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1458286010]
 visible = false
