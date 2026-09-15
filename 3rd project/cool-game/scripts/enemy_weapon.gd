@@ -4,7 +4,8 @@ class_name EnemyWeapon
 enum _WEAPON_STATES {
 	IDLE,
 	ATTACK,
-	PARRY
+	PARRY,
+	STUNNED
 }
 
 var weapon_state := _WEAPON_STATES.IDLE

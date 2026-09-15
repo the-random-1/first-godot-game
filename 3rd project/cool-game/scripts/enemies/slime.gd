@@ -96,8 +96,25 @@ func calculateTrajectory(x: float, a: float, b: float, dir: float) -> void:
 	var den := sqrt(1 + slope ** 2)
 	forces[0] = Vector2(1 / den, slope / den) * jumpspeed * dir
 
-func process(delta: float) -> void:
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+		$WaitForJumpTimer.start()
+	else:
+		$WanderTimer.stop()
+		$WaitForJumpTimer.stop()
+
+func _process(delta: float) -> void:
+	if !isplayerinboundedarea():
+		set_health(max_health)
+		chill()
+	if state == _STATES.STUNNED:
+		forces[0] = Vector2.ZERO
+	$AnimatedSprite2D.speed_scale = movementfactor
 	move_with_velocity(delta, state != _STATES.JUMP)
+	process_state(delta)
+
+func process_state(delta: float) -> void:
 	if isplayerinboundedarea():
 		if state == _STATES.IDLE || state == _STATES.WALK:
 			changestate(_STATES.CHASE)

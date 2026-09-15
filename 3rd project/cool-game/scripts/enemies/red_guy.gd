@@ -53,18 +53,26 @@ func _on_attack_delay_timeout() -> void:
 func die() -> void:
 	queue_free()
 
-func process(delta: float) -> void:
-	move_with_velocity(delta)
-	if isplayerinboundedarea():
-		if !(state == _STATES.CHASE || state == _STATES.ATTACK):
-			changestate(_STATES.CHASE)
-			wasinchase = true
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+		$AttackDelay.start()
 	else:
-		if wasinchase:
-			wasinchase = false
-			changestate(_STATES.IDLE)
-			forces[0] = Vector2.ZERO
-	if state == _STATES.CHASE:
-		destination = adjustChaseDestination(%Player.global_position, 15)
-		
-		forces[0] = speed * global_position.direction_to(destination)
+		$WanderTimer.stop()
+		$AttackDelay.stop()
+
+func process_state(delta: float) -> void:
+	if state != _STATES.STUNNED:
+		if isplayerinboundedarea():
+			if !(state == _STATES.CHASE || state == _STATES.ATTACK):
+				changestate(_STATES.CHASE)
+				wasinchase = true
+		else:
+			if wasinchase:
+				wasinchase = false
+				changestate(_STATES.IDLE)
+				forces[0] = Vector2.ZERO
+		if state == _STATES.CHASE:
+			destination = adjustChaseDestination(%Player.global_position, 15)
+			
+			forces[0] = speed * global_position.direction_to(destination)

@@ -31,12 +31,11 @@ func _enemyinit() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player" && state == _STATES.CHASE:
-		stun()
+		stun(2.2)
 		greenboarhit.emit(damage)
 		applyforcetoplayer(0.25)
 
-func process(delta: float) -> void:
-	move_with_velocity(delta)
+func process_state(delta: float) -> void:
 	if %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2:
 		if !(state == _STATES.CHASE || state == _STATES.STUNNED):
 			changestate(_STATES.CHASE)

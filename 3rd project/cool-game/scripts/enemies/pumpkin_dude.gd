@@ -42,16 +42,24 @@ func _on_impact_timer_timeout() -> void:
 	set_collision_mask_value(1, true)
 	stunspeedmultiplier = 1
 
-func process(delta: float) -> void:
-	move_with_velocity(delta)
-	if isplayerinboundedarea():
-		if state != _STATES.CHASE:
-			changestate(_STATES.CHASE)
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+		$ImpactTimer.start()
 	else:
-		if !(state == _STATES.IDLE || state == _STATES.WALK):
-			changestate(_STATES.IDLE)
-			forces[0] = Vector2.ZERO
-	if state == _STATES.CHASE:
-		destination = adjustChaseDestination(%Player.global_position, 20)
-		
-		forces[0] = speed * global_position.direction_to(destination)
+		$WanderTimer.stop()
+		$ImpactTimer.stop()
+
+func process_state(delta: float) -> void:
+	if state != _STATES.STUNNED:
+		if isplayerinboundedarea():
+			if state != _STATES.CHASE:
+				changestate(_STATES.CHASE)
+		else:
+			if !(state == _STATES.IDLE || state == _STATES.WALK):
+				changestate(_STATES.IDLE)
+				forces[0] = Vector2.ZERO
+		if state == _STATES.CHASE:
+			destination = adjustChaseDestination(%Player.global_position, 20)
+			
+			forces[0] = speed * global_position.direction_to(destination)

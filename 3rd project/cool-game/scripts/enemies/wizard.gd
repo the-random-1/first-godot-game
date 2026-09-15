@@ -29,8 +29,17 @@ func _enemyinit() -> void:
 	
 	$AttackTimer.timeout.connect(on_attack_timer_timeout)
 
-func process(delta: float) -> void:
-	move_with_velocity(delta)
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+		$RepositionTimer.start()
+		$AttackTimer.start()
+	else:
+		$WanderTimer.stop()
+		$RepositionTimer.stop()
+		$AttackTimer.stop()
+
+func process_state(delta: float) -> void:
 	if isplayerinboundedarea():
 		if state != _STATES.REPOSITION && isinreposarea(global_position) && $RepositionTimer.time_left == 0:
 			changestate(_STATES.REPOSITION)

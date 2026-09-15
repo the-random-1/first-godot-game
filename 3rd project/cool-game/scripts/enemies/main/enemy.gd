@@ -102,6 +102,9 @@ func fliph(face_left: bool) -> void:
 func die() -> void:
 	queue_free()
 
+func applyforcetoplayer(time: float) -> void:
+	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
+
 func _on_wander_timer_timeout() -> void:
 	var time := randf_range(wander_time.x, wander_time.y)
 	var newstate: _STATES = state
@@ -128,9 +131,6 @@ func _on_wander_timer_timeout() -> void:
 	$WanderTimer.wait_time = time
 	$WanderTimer.start()
 
-func _on_stun_timer_timeout() -> void:
-	changestate(_STATES.IDLE)
-
 func _on_area_entered(area: Area2D) -> void:
 	if area is Weapon:
 		if take_kb:
@@ -143,14 +143,25 @@ func _on_area_entered(area: Area2D) -> void:
 			await get_tree().create_timer(force).timeout
 			movementfactor += slowfactor
 
-func applyforcetoplayer(time: float) -> void:
-	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
-
 func stun(time: float = -1.0) -> void:
 	if time != -1.0:
 		$StunTimer.wait_time = max(time, 0.05)
+	toggletimers(false)
 	changestate(_STATES.STUNNED)
 	$StunTimer.start()
+
+func unstun() -> void:
+	changestate(_STATES.IDLE)
+	toggletimers(true)
+
+func _on_stun_timer_timeout() -> void:
+	unstun()
+
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+	else:
+		$WanderTimer.stop()
 
 func _ready() -> void:
 	_enemyinit()
@@ -169,9 +180,12 @@ func _process(delta: float) -> void:
 		chill()
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
-	else:
-		$AnimatedSprite2D.speed_scale = movementfactor
-		process(delta)
+	$AnimatedSprite2D.speed_scale = movementfactor
+	move_with_velocity(delta)
+	process_state(delta)
+
+func process_state(delta: float) -> void:
+	pass
 
 func chill() -> void:
 	if state == _STATES.CHASE:
@@ -179,9 +193,6 @@ func chill() -> void:
 		forces[0] = Vector2.ZERO
 		$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
 		$WanderTimer.start()
-
-func process(delta: float) -> void:
-	pass
 
 func isplayerinboundedarea() -> bool:
 	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2

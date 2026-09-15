@@ -6,7 +6,8 @@ signal deathknighthit(dmg: float)
 enum _WEAPON_STATES {
 	IDLE,
 	ATTACK,
-	PARRY
+	PARRY,
+	STUNNED
 }
 
 var weapon_state := _WEAPON_STATES.IDLE
@@ -29,6 +30,8 @@ func changestate(newstate: _STATES) -> void:
 func changeweaponstate(newstate: _WEAPON_STATES) -> void:
 	weapon_state = newstate
 	$EnemyWeapon.weapon_state = newstate
+	if newstate == _WEAPON_STATES.STUNNED:
+		reset_tween()
 
 func fliph(face_left: bool) -> void:
 	$AnimatedSprite2D.flip_h = face_left
@@ -62,39 +65,39 @@ func _enemyinit() -> void:
 	$AttackTimer.timeout.connect(_on_attack_timer_timeout)
 	$ParryTimer.timeout.connect(_on_parry_timer_timeout)
 
-func process(delta: float) -> void:
-	move_with_velocity(delta)
-	if isplayerinboundedarea():
-		if state == _STATES.IDLE || state == _STATES.WALK:
-			changestate(_STATES.CHASE)
-		if state == _STATES.PAUSE:
-			forces[0] = Vector2.ZERO
-		if state == _STATES.CHASE:
-			speed = 85.0
-		
-		var playerDist := global_position.distance_to(%Player.global_position)
-		if state != _STATES.ATTACK:
-			if playerDist < 20.0:
-				changestate(_STATES.PAUSE)
-			elif playerDist > 30.0:
+func process_state(delta: float) -> void:
+	if state != _STATES.STUNNED:
+		if isplayerinboundedarea():
+			if state == _STATES.IDLE || state == _STATES.WALK:
 				changestate(_STATES.CHASE)
-		
-		if weapon_state == _WEAPON_STATES.IDLE:
-			var dir := global_position.direction_to(%Player.global_position)
-			$EnemyWeapon.position = dir * 7 + Vector2(0, 2)
-			$EnemyWeapon.rotation_degrees = get_rot_from_dir(dir)
+			if state == _STATES.PAUSE:
+				forces[0] = Vector2.ZERO
+			if state == _STATES.CHASE:
+				speed = 85.0
 			
-			if playerDist < 50.0 && %Player.isAttacking() && $ParryTimer.time_left == 0 && state != _STATES.ATTACK:
-				parry(0.13)
-			if playerDist < 40.0 && !%Player.isAttacking() && $AttackTimer.time_left == 0:
-				attack()
-	else:
-		if !(state == _STATES.IDLE || state == _STATES.WALK):
-			changestate(_STATES.IDLE)
-	if state == _STATES.CHASE || state == _STATES.ATTACK:
-		destination = adjustChaseDestination(%Player.global_position, 8)
-		
-		forces[0] = speed * global_position.direction_to(destination)
+			var playerDist := global_position.distance_to(%Player.global_position)
+			if state != _STATES.ATTACK:
+				if playerDist < 20.0:
+					changestate(_STATES.PAUSE)
+				elif playerDist > 30.0:
+					changestate(_STATES.CHASE)
+			
+			if weapon_state == _WEAPON_STATES.IDLE:
+				var dir := global_position.direction_to(%Player.global_position)
+				$EnemyWeapon.position = dir * 7 + Vector2(0, 2)
+				$EnemyWeapon.rotation_degrees = get_rot_from_dir(dir)
+				
+				if playerDist < 50.0 && %Player.isAttacking() && $ParryTimer.time_left == 0 && state != _STATES.ATTACK:
+					parry(0.13)
+				if playerDist < 40.0 && !%Player.isAttacking() && $AttackTimer.time_left == 0:
+					attack()
+		else:
+			if !(state == _STATES.IDLE || state == _STATES.WALK):
+				changestate(_STATES.IDLE)
+		if state == _STATES.CHASE || state == _STATES.ATTACK:
+			destination = adjustChaseDestination(%Player.global_position, 8)
+			
+			forces[0] = speed * global_position.direction_to(destination)
 
 func _on_parry_detected(area: Area2D) -> void:
 	if area is Weapon && state == _STATES.CHASE:
@@ -116,6 +119,24 @@ func _on_area_entered_weapon(area: Area2D) -> void:
 			$ParryTimer.wait_time = 1.25 * area.activestats.force * 1.25
 		else:
 			$ParryTimer.wait_time = 1.25
+
+func stun(time: float = -1.0) -> void:
+	if time != -1.0:
+		$StunTimer.wait_time = max(time, 0.05)
+	changestate(_STATES.STUNNED)
+	changeweaponstate(_WEAPON_STATES.STUNNED)
+	toggletimers(false)
+	$StunTimer.start()
+
+func toggletimers(turnon: bool) -> void:
+	if turnon:
+		$WanderTimer.start()
+		$AttackTimer.start()
+		$ParryTimer.start()
+	else:
+		$WanderTimer.stop()
+		$AttackTimer.stop()
+		$ParryTimer.stop()
 
 func attack() -> void:
 	$AttackTimer.start()
