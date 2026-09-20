@@ -27,6 +27,7 @@ func _enemyinit() -> void:
 	m = 1.0
 	rand = increaseMagnitude(rand)
 	
+	$AttackTimer.wait_time = 1.1 + 0.2 * rand
 	$AttackTimer.timeout.connect(on_attack_timer_timeout)
 
 func toggletimers(turnon: bool) -> void:
@@ -54,7 +55,7 @@ func process_state(delta: float) -> void:
 		forces[0] = speed * global_position.direction_to(destination)
 		if global_position.distance_to(destination) < 5:
 			$RepositionTimer.start()
-			$AttackTimer.wait_time = 0.65
+			$AttackTimer.wait_time = rand * 0.1 + 0.65
 			$AttackTimer.start()
 			changestate(_STATES.ATTACK)
 			fireball()
@@ -72,7 +73,6 @@ func fireball() -> void:
 		new_fireball.sender = "wizard"
 		new_fireball.damage = damage
 		new_fireball.speed = 180.0
-		new_fireball.direction = global_position.direction_to(%Player.global_position)
 		new_fireball.player = %Player
 		if global_position.x < %Player.global_position.x:
 			fliph(false)
@@ -80,6 +80,7 @@ func fireball() -> void:
 		else:
 			fliph(true)
 			new_fireball.global_position = global_position + Vector2(-10, 0)
+		new_fireball.direction = new_fireball.global_position.direction_to(%Player.global_position)
 		projectiles.add_child(new_fireball)
 
 func on_attack_timer_timeout() -> void:

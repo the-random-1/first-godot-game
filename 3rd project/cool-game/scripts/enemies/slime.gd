@@ -35,7 +35,7 @@ func _enemyinit() -> void:
 	max_health = 150.0
 	health = max_health
 	damage = 20.0
-	kb = 1
+	kb = 1.0
 	take_kb = false
 	wander_time = Vector2(0.75, 2.0)
 	m = 10.0
@@ -47,12 +47,11 @@ func _enemyinit() -> void:
 	$WaitForJumpTimer.timeout.connect(_attempt_jump)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		if state == _STATES.CHASE:
-			stun(0.9 + rand * 0.5)
-			$WaitForJumpTimer.stop()
-			slimehit.emit(damage, stuntime * 0.7)
-			applyforcetoplayer(0.25)
+	if body is Player && state == _STATES.CHASE:
+		stun(0.9 + rand * 0.5)
+		$WaitForJumpTimer.stop()
+		slimehit.emit(damage, stuntime * 0.7)
+		applyforcetoplayer(0.25)
 
 func _on_stun_timer_timeout() -> void:
 	changestate(_STATES.IDLE)

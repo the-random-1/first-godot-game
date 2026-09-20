@@ -131,7 +131,7 @@ func _on_wander_timer_timeout() -> void:
 	$WanderTimer.wait_time = time
 	$WanderTimer.start()
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_weapon_entered(area: Area2D) -> void:
 	if area is Weapon:
 		if take_kb:
 			apply_force(area.global_position.direction_to(global_position) * area.stats.attack1.kb / m, area.stats.attack1.kbt, true)
@@ -165,7 +165,7 @@ func toggletimers(turnon: bool) -> void:
 
 func _ready() -> void:
 	_enemyinit()
-	area_entered.connect(_on_area_entered)
+	area_entered.connect(_on_weapon_entered)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
 	$StunTimer.timeout.connect(_on_stun_timer_timeout)
 	$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y)

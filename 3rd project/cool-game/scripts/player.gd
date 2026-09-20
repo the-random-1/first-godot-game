@@ -111,6 +111,9 @@ func _deathknighthit(dmg: float) -> void:
 	change_health(-dmg)
 func _fireballhit(dmg: float) -> void:
 	change_health(-dmg)
+func _pacifierhit(dmg: float, stuntime: float) -> void:
+	change_health(-dmg)
+	stun(stuntime)
 
 func _ready() -> void:
 	Global.player = self
