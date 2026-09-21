@@ -1,13 +1,11 @@
-extends StaticBody2D
+extends Node
 
+@export var enemy_bounded_area: EnemyBoundedArea
 
-func disable() -> void:
-	visible = false
-	$CollisionShape2D.disabled = true
+func _ready() -> void:
+	enemy_bounded_area.cleared.connect(toggleoff)
 
-func enable() -> void:
-	visible = true
-	$CollisionShape2D.disabled = false
-
-func disable_forever() -> void:
-	call_deferred("queue_free")
+func toggleoff() -> void:
+	for tilemaplayer in get_children():
+		if tilemaplayer is DefaultTileMap:
+			tilemaplayer.enabled = false

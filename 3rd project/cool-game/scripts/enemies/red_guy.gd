@@ -26,7 +26,9 @@ func _enemyinit() -> void:
 	damage = 7.0
 	wander_time = Vector2(2.0, 4.5)
 	m = 1.0
-
+	
+	reversewhentouchingplayer = false
+	
 	redguyhit.connect(%Player._redguyhit)
 	body_entered.connect(_on_body_entered)
 	$AttackDelay.timeout.connect(_on_attack_delay_timeout)
@@ -49,9 +51,6 @@ func _on_attack_delay_timeout() -> void:
 			ishouldchangemystate = false
 	if ishouldchangemystate:
 		changestate(_STATES.IDLE)
-
-func die() -> void:
-	queue_free()
 
 func toggletimers(turnon: bool) -> void:
 	if turnon:

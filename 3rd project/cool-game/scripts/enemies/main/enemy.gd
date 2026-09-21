@@ -44,6 +44,11 @@ func set_health(newhealth: float) -> void:
 	$HealthBar.set_healthbar(newhealth / max_health)
 func change_health(diff: float) -> void:
 	set_health(health + diff)
+signal death
+
+var istouchingplayer := false
+var reversewhentouchingplayer := true
+var tpreverse := false
 
 # Physics
 var forces := {0: Vector2.ZERO}
@@ -100,7 +105,8 @@ func fliph(face_left: bool) -> void:
 	$AnimatedSprite2D.flip_h = face_left
 
 func die() -> void:
-	queue_free()
+	death.emit()
+	call_deferred("queue_free")
 
 func applyforcetoplayer(time: float) -> void:
 	%Player.apply_force((%Player.global_position - global_position) * kb / %Player.global_position.distance_to(global_position), time)
@@ -163,9 +169,19 @@ func toggletimers(turnon: bool) -> void:
 	else:
 		$WanderTimer.stop()
 
+func _on_player_enter(body: Node2D) -> void:
+	if body is Player:
+		istouchingplayer = true
+
+func _on_player_exit(body: Node2D) -> void:
+	if body is Player:
+		istouchingplayer = false
+
 func _ready() -> void:
 	_enemyinit()
 	area_entered.connect(_on_weapon_entered)
+	body_entered.connect(_on_player_enter)
+	body_exited.connect(_on_player_exit)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
 	$StunTimer.timeout.connect(_on_stun_timer_timeout)
 	$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y)
@@ -180,6 +196,8 @@ func _process(delta: float) -> void:
 		chill()
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
+	tpreverse = istouchingplayer && reversewhentouchingplayer
+	reversemovement = tpreverse
 	$AnimatedSprite2D.speed_scale = movementfactor
 	move_with_velocity(delta)
 	process_state(delta)

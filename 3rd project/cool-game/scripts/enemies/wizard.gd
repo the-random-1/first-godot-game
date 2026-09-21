@@ -27,6 +27,8 @@ func _enemyinit() -> void:
 	m = 1.0
 	rand = increaseMagnitude(rand)
 	
+	reversewhentouchingplayer = false
+	
 	$AttackTimer.wait_time = 1.1 + 0.2 * rand
 	$AttackTimer.timeout.connect(on_attack_timer_timeout)
 

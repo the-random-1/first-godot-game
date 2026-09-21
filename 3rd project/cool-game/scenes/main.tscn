@@ -11,10 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://dnm501gj0xuyr" path="res://scenes/traps/bear_trap.tscn" id="6_muem4"]
 [ext_resource type="PackedScene" uid="uid://fwt2hkomatt8" path="res://scenes/enemies/main/enemy_bounded_area.tscn" id="6_mxtan"]
 [ext_resource type="PackedScene" uid="uid://dpb6kfqqc2v00" path="res://scenes/locked_chest.tscn" id="7_4cxrf"]
-[ext_resource type="PackedScene" uid="uid://bh64arupkehts" path="res://scenes/barrier.tscn" id="8_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://bh64arupkehts" path="res://scenes/pillar.tscn" id="8_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://bgsdhj4oom3mv" path="res://scenes/enemies/green_boar.tscn" id="8_mnnmc"]
 [ext_resource type="PackedScene" uid="uid://cy7p41vjqcejb" path="res://scenes/item_pickup.tscn" id="8_muem4"]
+[ext_resource type="PackedScene" uid="uid://darpnkh27ogi6" path="res://scenes/barrier.tscn" id="9_y6deb"]
 [ext_resource type="PackedScene" uid="uid://cw3xcbpxsd2md" path="res://scenes/chest.tscn" id="10_6et61"]
+[ext_resource type="PackedScene" uid="uid://docwcndti8y7g" path="res://scenes/default_tilemap.tscn" id="10_og1vs"]
 [ext_resource type="Script" uid="uid://bmiekp426xfk8" path="res://scripts/canvas_layer.gd" id="10_s5ekq"]
 [ext_resource type="PackedScene" uid="uid://bhbo8c2xxg0cj" path="res://scenes/enemies/pumpkin_dude.tscn" id="12_87nrn"]
 [ext_resource type="PackedScene" uid="uid://28ma8movjv5x" path="res://scenes/inventory.tscn" id="13_dltgl"]
@@ -74,7 +76,7 @@ texture = ExtResource("1_30xfn")
 [sub_resource type="TileSet" id="TileSet_njvdo"]
 sources/0 = SubResource("TileSetAtlasSource_w1tni")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8heto"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscy8"]
 texture = ExtResource("2_4iqw8")
 texture_region_size = Vector2i(16, 32)
 1:0/0 = 0
@@ -162,7 +164,7 @@ texture_region_size = Vector2i(16, 32)
 10:2/0 = 0
 10:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5, 8, -5, 8, 1, 3, 1, 3, 16, -3, 16, -3, 1, -8, 1)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ql4my"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pm3ni"]
 texture = ExtResource("3_p0qp6")
 0:0/0 = 0
 1:0/0 = 0
@@ -214,8 +216,8 @@ texture = ExtResource("3_p0qp6")
 
 [sub_resource type="TileSet" id="TileSet_mp08v"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_8heto")
-sources/1 = SubResource("TileSetAtlasSource_ql4my")
+sources/0 = SubResource("TileSetAtlasSource_jscy8")
+sources/1 = SubResource("TileSetAtlasSource_pm3ni")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bthnv"]
 texture = ExtResource("2_4iqw8")
@@ -385,14 +387,30 @@ position = Vector2(920, 616)
 [node name="BearTrap2" parent="Level/Obstacles/Traps" unique_id=822155780 instance=ExtResource("6_muem4")]
 position = Vector2(1000, 584)
 
+[node name="BearTrap3" parent="Level/Obstacles/Traps" unique_id=1390888875 instance=ExtResource("6_muem4")]
+position = Vector2(1752, 1656)
+
 [node name="Barriers" type="Node" parent="Level/Obstacles" unique_id=1759619078]
 
-[node name="Barrier" type="Node" parent="Level/Obstacles/Barriers" unique_id=890015185]
+[node name="Barrier" parent="Level/Obstacles/Barriers" unique_id=1724025236 node_paths=PackedStringArray("enemy_bounded_area") instance=ExtResource("9_y6deb")]
+enemy_bounded_area = NodePath("../../../Enemies/EnemyBoundedArea2")
 
-[node name="Barrier" parent="Level/Obstacles/Barriers/Barrier" unique_id=792687694 instance=ExtResource("8_gqmmt")]
+[node name="TileMapLayer" parent="Level/Obstacles/Barriers/Barrier" unique_id=1571177104 instance=ExtResource("10_og1vs")]
+z_index = 3
+tile_map_data = PackedByteArray("AAAKABMAAAAAAAEAAAAKABQAAAAAAAEAAAAKABUAAAAAAAEAAAA=")
+_wall_type = 1
+
+[node name="TileMapLayer2" parent="Level/Obstacles/Barriers/Barrier" unique_id=604977701 instance=ExtResource("10_og1vs")]
+z_index = 10
+tile_map_data = PackedByteArray("AAAKABYAAAAEAAIAAAA=")
+_wall_type = 2
+
+[node name="Pillars" type="Node" parent="Level/Obstacles/Barriers" unique_id=890015185]
+
+[node name="Pillar" parent="Level/Obstacles/Barriers/Pillars" unique_id=792687694 instance=ExtResource("8_gqmmt")]
 position = Vector2(376, 560)
 
-[node name="Barrier2" parent="Level/Obstacles/Barriers/Barrier" unique_id=742608971 instance=ExtResource("8_gqmmt")]
+[node name="Pillar2" parent="Level/Obstacles/Barriers/Pillars" unique_id=742608971 instance=ExtResource("8_gqmmt")]
 position = Vector2(376, 576)
 
 [node name="Items" type="Node" parent="Level" unique_id=2146676337]
@@ -917,6 +935,9 @@ position = Vector2(68, 50)
 [node name="Pacifier2" parent="Level/Enemies/EnemyBoundedArea17" unique_id=605543430 instance=ExtResource("18_jscy8")]
 position = Vector2(174, 128)
 
+[node name="Pacifier3" parent="Level/Enemies/EnemyBoundedArea17" unique_id=1764407556 instance=ExtResource("18_jscy8")]
+position = Vector2(177, 49)
+
 [node name="DeathKnight" parent="Level/Enemies/EnemyBoundedArea17" unique_id=414933418 instance=ExtResource("16_0ld40")]
 position = Vector2(125, 81)
 
@@ -1059,12 +1080,17 @@ position = Vector2(116, 79)
 favorite_area_x1 = 0.5
 favorite_area_chance = 1.0
 
+[node name="DeathKnight2" parent="Level/Enemies/EnemyBoundedArea26" unique_id=449366148 instance=ExtResource("16_0ld40")]
+position = Vector2(37, 78)
+favorite_area_x1 = 0.5
+favorite_area_chance = 1.0
+
 [node name="Projectiles" type="Node" parent="." unique_id=315001650]
 
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(1750, 1608)
+position = Vector2(387, 265)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -1073,7 +1099,7 @@ zoom = Vector2(5, 5)
 position_smoothing_speed = 12.0
 
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
-position = Vector2(263, 1241)
+position = Vector2(386, 262)
 item = 1
 data = 1
 
@@ -1120,6 +1146,3 @@ text = "to prevent people from running past every enemy:
     -they drop loot/xp that is required later
     -checkpoints are unlocked by clearing rooms"
 autowrap_mode = 3
-
-[node name="BearTrap" parent="." unique_id=1390888875 instance=ExtResource("6_muem4")]
-position = Vector2(1752, 1656)
