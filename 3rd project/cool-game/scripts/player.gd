@@ -165,7 +165,7 @@ func _process(_delta: float) -> void:
 		inventory_ref.visible = inventoryisopen
 
 var cycle := 0
-var old_pos := Vector2.ZERO
+var old_pos := global_position
 var p_dis := Vector2.ZERO
 var practical_velocity := Vector2.ZERO
 func update_practical_velocity() -> void:

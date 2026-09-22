@@ -1058,9 +1058,6 @@ offset_top = 1695.0
 offset_right = 2133.0
 offset_bottom = 1827.0
 
-[node name="DeathKnight" parent="Level/Enemies/EnemyBoundedArea25" unique_id=532367796 instance=ExtResource("16_0ld40")]
-position = Vector2(54, 71)
-
 [node name="Slime" parent="Level/Enemies/EnemyBoundedArea25" unique_id=557286488 instance=ExtResource("13_jbj1t")]
 position = Vector2(131, 76)
 
@@ -1090,7 +1087,7 @@ favorite_area_chance = 1.0
 [node name="Player" parent="." unique_id=1799199017 instance=ExtResource("1_5e3qt")]
 unique_name_in_owner = true
 z_index = 5
-position = Vector2(387, 265)
+position = Vector2(1927, 1751)
 scale = Vector2(1, 1)
 metadata/_edit_group_ = true
 
@@ -1099,7 +1096,7 @@ zoom = Vector2(5, 5)
 position_smoothing_speed = 12.0
 
 [node name="longsword" parent="." unique_id=1648385812 instance=ExtResource("8_muem4")]
-position = Vector2(386, 262)
+position = Vector2(1926, 1748)
 item = 1
 data = 1
 

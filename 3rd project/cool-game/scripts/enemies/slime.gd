@@ -109,6 +109,8 @@ func _process(delta: float) -> void:
 		chill()
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
+	tpreverse = istouchingplayer && reversewhentouchingplayer
+	reversemovement = tpreverse
 	$AnimatedSprite2D.speed_scale = movementfactor
 	move_with_velocity(delta, state != _STATES.JUMP)
 	process_state(delta)

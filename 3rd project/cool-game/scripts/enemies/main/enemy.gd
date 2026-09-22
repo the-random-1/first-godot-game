@@ -197,6 +197,8 @@ func _process(delta: float) -> void:
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
 	tpreverse = istouchingplayer && reversewhentouchingplayer
+	if global_position.distance_to(%Player.global_position) < 40:
+		print(istouchingplayer && reversewhentouchingplayer)
 	reversemovement = tpreverse
 	$AnimatedSprite2D.speed_scale = movementfactor
 	move_with_velocity(delta)
