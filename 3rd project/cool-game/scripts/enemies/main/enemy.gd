@@ -184,6 +184,7 @@ func _ready() -> void:
 	body_exited.connect(_on_player_exit)
 	$WanderTimer.timeout.connect(_on_wander_timer_timeout)
 	$StunTimer.timeout.connect(_on_stun_timer_timeout)
+	$HealTimer.timeout.connect(_on_heal_timer_timeout)
 	$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y)
 	$WanderTimer.start()
 
@@ -192,8 +193,12 @@ func _enemyinit() -> void:
 
 func _process(delta: float) -> void:
 	if !isplayerinboundedarea():
-		set_health(max_health)
+		if $HealTimer.time_left == 0:
+			$HealTimer.start()
 		chill()
+	else:
+		if $HealTimer.time_left == 0:
+			$HealTimer.stop()
 	if state == _STATES.STUNNED:
 		forces[0] = Vector2.ZERO
 	tpreverse = istouchingplayer && reversewhentouchingplayer
@@ -213,6 +218,9 @@ func chill() -> void:
 		forces[0] = Vector2.ZERO
 		$WanderTimer.wait_time = randf_range(wander_time.x, wander_time.y) * 0.2
 		$WanderTimer.start()
+
+func _on_heal_timer_timeout() -> void:
+	set_health(max_health)
 
 func isplayerinboundedarea() -> bool:
 	return %Player.global_position.x >= bounded_area_x1 && %Player.global_position.x <= bounded_area_x2 && %Player.global_position.y > bounded_area_y1 && %Player.global_position.y < bounded_area_y2
